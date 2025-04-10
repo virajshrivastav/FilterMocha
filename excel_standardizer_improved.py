@@ -22,8 +22,8 @@ class ExcelStandardizer:
     def __init__(self):
         """Initialize the standardizer"""
         self.log_entries = []
-        self.standard_format_path = os.path.join('Standard-Format', 'iMocha Standard Format.xlsx')
-        self.output_dir = 'Processed-Files'
+        self.standard_format_path = os.path.join(os.environ.get('STANDARD_FORMAT_DIR', 'Standard-Format'), 'iMocha Standard Format.xlsx')
+        self.output_dir = os.environ.get('OUTPUT_FOLDER', 'Processed-Files')
 
         # Create output directory if it doesn't exist
         os.makedirs(self.output_dir, exist_ok=True)

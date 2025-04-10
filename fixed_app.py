@@ -41,8 +41,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Define folders
-UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = 'Processed-Files'  # Match the folder used by ExcelStandardizer
+# Use /tmp for writable directories on Render
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', 'uploads')
+OUTPUT_FOLDER = os.environ.get('OUTPUT_FOLDER', 'Processed-Files')  # Match the folder used by ExcelStandardizer
 
 # Create folders if they don't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -617,6 +618,7 @@ def view_folder(folder_path):
     return Response(html, mimetype='text/html')
 
 if __name__ == '__main__':
-    # Use port 5051 which we confirmed is available
-    print("Starting fixed app on port 5051...")
-    app.run(debug=True, port=5051)
+    # Use port from environment variable for compatibility with Render
+    port = int(os.environ.get('PORT', 5051))
+    print(f"Starting fixed app on port {port}...")
+    app.run(host='0.0.0.0', port=port, debug=False)
