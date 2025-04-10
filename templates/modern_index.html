@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Standardizer</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .file-drop-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            padding: 2rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            transition: 0.2s;
+            background-color: #f8fafc;
+        }
+        
+        .file-drop-area.is-active {
+            background-color: #fff7ed;
+            border-color: #f97316;
+        }
+        
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+            opacity: 0;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #f97316;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-orange-50/50 via-white to-orange-50/50">
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="bg-white p-6 rounded-xl shadow-xl flex flex-col items-center">
+            <div class="spinner mb-4"></div>
+            <p class="text-gray-700 font-medium" id="loadingMessage">Processing...</p>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center space-y-6 mb-12">
+            <div class="inline-flex items-center justify-center p-3 bg-white rounded-2xl shadow-xl ring-1 ring-black/5">
+                <i class="fas fa-table text-orange-500 text-4xl"></i>
+            </div>
+            <h1 class="text-5xl font-bold tracking-tight text-gray-900">
+                Column Mapping for Filter<span class="text-orange-500">Mocha</span>
+            </h1>
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl ring-1 ring-black/5 p-6">
+                <div class="flex items-start gap-4">
+                    <i class="fas fa-info-circle text-orange-500 text-xl mt-1"></i>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Map your Excel columns to our standard template format. Upload your file and configure the mapping to standardize your data.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div id="app">
+            <!-- Step 1: File Upload (initial view) -->
+            <div id="fileUploadSection" class="bg-white rounded-2xl shadow-xl ring-1 ring-black/5 p-8">
+                <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
+                    <i class="fas fa-file-excel text-orange-500 text-xl"></i>
+                    <h2 class="text-2xl font-semibold text-gray-900">
+                        Upload Excel File
+                    </h2>
+                </div>
+                
+                <div class="file-drop-area" id="dropArea">
+                    <div class="text-center">
+                        <i class="fas fa-cloud-upload-alt text-orange-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-medium text-gray-700 mb-2">Drag & Drop your Excel file here</h3>
+                        <p class="text-gray-500 mb-4">or</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            Browse Files
+                        </button>
+                        <p class="text-gray-500 text-sm mt-4">Supported formats: .xlsx, .xls</p>
+                    </div>
+                    <input type="file" class="file-input" id="fileInput" accept=".xlsx,.xls">
+                </div>
+            </div>
+
+            <!-- Step 2: Column Mapping (hidden initially) -->
+            <div id="mappingSection" class="hidden space-y-6 mt-6">
+                <div class="bg-white rounded-2xl shadow-xl ring-1 ring-black/5 p-8">
+                    <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
+                        <i class="fas fa-columns text-orange-500 text-xl"></i>
+                        <h2 class="text-2xl font-semibold text-gray-900">
+                            Column Mapping
+                        </h2>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-medium text-gray-900">Selected File:</h3>
+                            <button id="changeFileBtn" class="text-orange-500 hover:text-orange-600 font-medium flex items-center gap-1">
+                                <i class="fas fa-exchange-alt"></i> Change File
+                            </button>
+                        </div>
+                        <p id="selectedFileName" class="text-gray-700 mt-1"></p>
+                        <p id="fileStats" class="text-gray-500 text-sm mt-1"></p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6" id="mappingFields">
+                        <!-- Mapping fields will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-xl ring-1 ring-black/5 p-8">
+                    <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
+                        <i class="fas fa-cogs text-orange-500 text-xl"></i>
+                        <h2 class="text-2xl font-semibold text-gray-900">
+                            Additional Options
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded transition-colors">
+                            <input type="checkbox" id="enableFileSplitting" class="h-5 w-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
+                            <label for="enableFileSplitting" class="text-sm font-medium text-gray-700 cursor-pointer select-none">
+                                Enable File Splitting (Split large files into smaller chunks)
+                            </label>
+                        </div>
+                        
+                        <div id="fileSplittingOptions" class="ml-8 mt-4 p-4 bg-white rounded-xl border border-gray-200 shadow-sm hidden">
+                            <label for="fileSplittingColumn" class="block text-sm font-medium text-gray-700 mb-2">
+                                Split Column<span class="text-red-500 ml-1">*</span>
+                            </label>
+                            <select id="fileSplittingColumn" class="block w-full px-4 py-2.5 bg-gray-50 rounded-xl
+                                     border border-gray-200 
+                                     focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500
+                                     transition duration-200 ease-in-out
+                                     hover:border-orange-300 hover:bg-white">
+                                <option value="">Select a column</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="processButton" class="w-full flex justify-center items-center gap-3 py-4 px-6 
+                             bg-orange-500 hover:bg-orange-600
+                             text-white text-lg font-semibold rounded-2xl
+                             shadow-lg shadow-orange-500/20
+                             transition-all duration-200 ease-out
+                             hover:shadow-xl hover:shadow-orange-500/30
+                             focus:outline-none focus:ring-2 focus:ring-offset-2 
+                             focus:ring-orange-500">
+                    <i class="fas fa-paper-plane"></i>
+                    Process File
+                </button>
+            </div>
+
+            <!-- Step 3: Results (hidden initially) -->
+            <div id="resultsSection" class="hidden space-y-6 mt-6">
+                <div class="bg-white rounded-2xl shadow-xl ring-1 ring-black/5 p-8">
+                    <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                        <h2 class="text-2xl font-semibold text-gray-900">
+                            Processing Complete
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Output Files</h3>
+                            <div id="outputFilesList" class="space-y-3">
+                                <!-- Output files will be listed here -->
+                            </div>
+                        </div>
+                        
+                        <div id="errorsSection" class="hidden">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Warnings/Errors</h3>
+                            <div id="errorsList" class="space-y-2 bg-red-50 p-4 rounded-xl">
+                                <!-- Errors will be listed here -->
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mt-6 pt-6 border-t border-gray-100">
+                            <button id="viewFolderButton" class="flex items-center gap-2 py-2 px-4 
+                                     bg-white border border-gray-300 hover:bg-gray-50
+                                     text-gray-700 font-medium rounded-lg
+                                     transition-colors duration-200">
+                                <i class="fas fa-folder-open"></i>
+                                View Output Folder
+                            </button>
+                            
+                            <button id="newFileButton" class="flex items-center gap-2 py-2 px-4 
+                                     bg-orange-500 hover:bg-orange-600
+                                     text-white font-medium rounded-lg
+                                     transition-colors duration-200">
+                                <i class="fas fa-plus"></i>
+                                Process Another File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const dropArea = document.getElementById('dropArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileUploadSection = document.getElementById('fileUploadSection');
+            const mappingSection = document.getElementById('mappingSection');
+            const resultsSection = document.getElementById('resultsSection');
+            const selectedFileName = document.getElementById('selectedFileName');
+            const fileStats = document.getElementById('fileStats');
+            const mappingFields = document.getElementById('mappingFields');
+            const changeFileBtn = document.getElementById('changeFileBtn');
+            const enableFileSplitting = document.getElementById('enableFileSplitting');
+            const fileSplittingOptions = document.getElementById('fileSplittingOptions');
+            const fileSplittingColumn = document.getElementById('fileSplittingColumn');
+            const processButton = document.getElementById('processButton');
+            const outputFilesList = document.getElementById('outputFilesList');
+            const errorsList = document.getElementById('errorsList');
+            const errorsSection = document.getElementById('errorsSection');
+            const viewFolderButton = document.getElementById('viewFolderButton');
+            const newFileButton = document.getElementById('newFileButton');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingMessage = document.getElementById('loadingMessage');
+            
+            // Variables
+            let currentFile = null;
+            let fileColumns = [];
+            let standardColumns = [];
+            let outputFolder = null;
+            
+            // Event Listeners
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.classList.add('is-active');
+            });
+            
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('is-active');
+            });
+            
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('is-active');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFileUpload(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+            
+            changeFileBtn.addEventListener('click', () => {
+                fileUploadSection.classList.remove('hidden');
+                mappingSection.classList.add('hidden');
+                resultsSection.classList.add('hidden');
+                currentFile = null;
+            });
+            
+            enableFileSplitting.addEventListener('change', () => {
+                fileSplittingOptions.classList.toggle('hidden', !enableFileSplitting.checked);
+            });
+            
+            processButton.addEventListener('click', processFile);
+            
+            newFileButton.addEventListener('click', () => {
+                fileUploadSection.classList.remove('hidden');
+                mappingSection.classList.add('hidden');
+                resultsSection.classList.add('hidden');
+                currentFile = null;
+            });
+            
+            // Functions
+            function showLoading(message = 'Processing...') {
+                loadingMessage.textContent = message;
+                loadingOverlay.classList.remove('hidden');
+            }
+            
+            function hideLoading() {
+                loadingOverlay.classList.add('hidden');
+            }
+            
+            function handleFileUpload(file) {
+                if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
+                    alert('Please upload an Excel file (.xlsx or .xls)');
+                    return;
+                }
+                
+                showLoading('Analyzing file...');
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Failed to analyze file');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    currentFile = {
+                        filename: data.filename,
+                        originalFilename: data.original_filename,
+                        rows: data.rows
+                    };
+                    
+                    fileColumns = data.columns;
+                    standardColumns = data.standard_columns;
+                    
+                    // Update UI
+                    selectedFileName.textContent = data.original_filename;
+                    fileStats.textContent = `${data.rows} rows, ${data.columns.length} columns`;
+                    
+                    // Create mapping fields
+                    createMappingFields();
+                    
+                    // Update split column dropdown
+                    fileSplittingColumn.innerHTML = '<option value="">Select a column</option>';
+                    data.columns.forEach(column => {
+                        const option = document.createElement('option');
+                        option.value = column.name;
+                        option.textContent = column.name;
+                        fileSplittingColumn.appendChild(option);
+                    });
+                    
+                    // Show mapping section
+                    fileUploadSection.classList.add('hidden');
+                    mappingSection.classList.remove('hidden');
+                    resultsSection.classList.add('hidden');
+                    
+                    hideLoading();
+                })
+                .catch(error => {
+                    hideLoading();
+                    alert(error.message || 'An error occurred while analyzing the file');
+                });
+            }
+            
+            function createMappingFields() {
+                mappingFields.innerHTML = '';
+                
+                const requiredFields = [
+                    'Question Type', 'Difficulty Level', 'Question Text',
+                    'Option (A)', 'Option (B)', 'Option (C)', 'Option (D)',
+                    'Correct Answer', 'Topics'
+                ];
+                
+                standardColumns.forEach((column, index) => {
+                    const isRequired = requiredFields.includes(column);
+                    
+                    const fieldDiv = document.createElement('div');
+                    fieldDiv.className = 'group relative';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'block text-sm font-medium text-gray-700 mb-2';
+                    label.textContent = column;
+                    
+                    if (isRequired) {
+                        const requiredSpan = document.createElement('span');
+                        requiredSpan.className = 'text-red-500 ml-1';
+                        requiredSpan.textContent = '*';
+                        label.appendChild(requiredSpan);
+                    }
+                    
+                    const selectDiv = document.createElement('div');
+                    selectDiv.className = 'relative';
+                    
+                    const select = document.createElement('select');
+                    select.className = `mapping-select block w-full px-4 py-2.5 bg-gray-50 rounded-xl
+                                     border border-gray-200 
+                                     focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500
+                                     transition duration-200 ease-in-out
+                                     group-hover:border-orange-300 group-hover:bg-white`;
+                    select.dataset.standardColumn = column;
+                    
+                    // Add options
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = '-- Select Column --';
+                    select.appendChild(defaultOption);
+                    
+                    const blankOption = document.createElement('option');
+                    blankOption.value = 'blank';
+                    blankOption.textContent = '-- Keep Blank --';
+                    select.appendChild(blankOption);
+                    
+                    // Add file columns
+                    fileColumns.forEach(fileColumn => {
+                        const option = document.createElement('option');
+                        option.value = fileColumn.name;
+                        option.textContent = fileColumn.name;
+                        
+                        // Auto-select if names are similar
+                        if (fileColumn.name.toLowerCase().includes(column.toLowerCase()) ||
+                            column.toLowerCase().includes(fileColumn.name.toLowerCase())) {
+                            option.selected = true;
+                        }
+                        
+                        select.appendChild(option);
+                    });
+                    
+                    selectDiv.appendChild(select);
+                    fieldDiv.appendChild(label);
+                    fieldDiv.appendChild(selectDiv);
+                    mappingFields.appendChild(fieldDiv);
+                });
+            }
+            
+            function processFile() {
+                // Validate mapping
+                const requiredFields = [
+                    'Question Type', 'Difficulty Level', 'Question Text',
+                    'Option (A)', 'Option (B)', 'Option (C)', 'Option (D)',
+                    'Correct Answer', 'Topics'
+                ];
+                
+                const mapping = {};
+                const mappingSelects = document.querySelectorAll('.mapping-select');
+                
+                let missingRequired = false;
+                
+                mappingSelects.forEach(select => {
+                    const standardColumn = select.dataset.standardColumn;
+                    const selectedValue = select.value;
+                    
+                    if (selectedValue && selectedValue !== 'blank') {
+                        mapping[standardColumn] = selectedValue;
+                    } else if (requiredFields.includes(standardColumn) && (!selectedValue || selectedValue === 'blank')) {
+                        missingRequired = true;
+                        select.classList.add('border-red-500');
+                    }
+                });
+                
+                if (missingRequired) {
+                    alert('Please map all required fields (marked with *)');
+                    return;
+                }
+                
+                // Validate file splitting
+                let splitConfig = null;
+                if (enableFileSplitting.checked) {
+                    const splitColumn = fileSplittingColumn.value;
+                    if (!splitColumn) {
+                        alert('Please select a column for file splitting');
+                        return;
+                    }
+                    
+                    splitConfig = {
+                        enabled: true,
+                        column: splitColumn
+                    };
+                }
+                
+                // Process file
+                showLoading('Processing file...');
+                
+                fetch('/api/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        filename: currentFile.filename,
+                        mapping: mapping,
+                        split_config: splitConfig
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Failed to process file');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Update UI with results
+                    outputFilesList.innerHTML = '';
+                    
+                    if (data.output_files && data.output_files.length > 0) {
+                        data.output_files.forEach(file => {
+                            const fileItem = document.createElement('div');
+                            fileItem.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors';
+                            
+                            const fileInfo = document.createElement('div');
+                            fileInfo.className = 'flex items-center gap-3';
+                            
+                            const icon = document.createElement('i');
+                            icon.className = 'fas fa-file-excel text-green-500';
+                            
+                            const fileName = document.createElement('span');
+                            fileName.className = 'text-gray-700';
+                            fileName.textContent = file.name;
+                            
+                            fileInfo.appendChild(icon);
+                            fileInfo.appendChild(fileName);
+                            
+                            const actions = document.createElement('div');
+                            actions.className = 'flex gap-2';
+                            
+                            const viewBtn = document.createElement('a');
+                            viewBtn.href = `/api/view/${file.path}`;
+                            viewBtn.target = '_blank';
+                            viewBtn.className = 'px-3 py-1 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors';
+                            viewBtn.innerHTML = '<i class="fas fa-eye mr-1"></i> View';
+                            
+                            const downloadBtn = document.createElement('a');
+                            downloadBtn.href = `/api/download/${file.path}`;
+                            downloadBtn.className = 'px-3 py-1 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors';
+                            downloadBtn.innerHTML = '<i class="fas fa-download mr-1"></i> Download';
+                            
+                            actions.appendChild(viewBtn);
+                            actions.appendChild(downloadBtn);
+                            
+                            fileItem.appendChild(fileInfo);
+                            fileItem.appendChild(actions);
+                            
+                            outputFilesList.appendChild(fileItem);
+                        });
+                    } else {
+                        outputFilesList.innerHTML = '<p class="text-gray-500">No output files generated</p>';
+                    }
+                    
+                    // Show errors if any
+                    errorsList.innerHTML = '';
+                    if (data.errors && data.errors.length > 0) {
+                        data.errors.forEach(error => {
+                            const errorItem = document.createElement('div');
+                            errorItem.className = 'flex items-start gap-2';
+                            
+                            const icon = document.createElement('i');
+                            icon.className = 'fas fa-exclamation-triangle text-red-500 mt-1';
+                            
+                            const message = document.createElement('span');
+                            message.className = 'text-red-700';
+                            message.textContent = error;
+                            
+                            errorItem.appendChild(icon);
+                            errorItem.appendChild(message);
+                            
+                            errorsList.appendChild(errorItem);
+                        });
+                        
+                        errorsSection.classList.remove('hidden');
+                    } else {
+                        errorsSection.classList.add('hidden');
+                    }
+                    
+                    // Store output folder
+                    outputFolder = data.output_folder;
+                    
+                    // Show results section
+                    fileUploadSection.classList.add('hidden');
+                    mappingSection.classList.add('hidden');
+                    resultsSection.classList.remove('hidden');
+                    
+                    hideLoading();
+                })
+                .catch(error => {
+                    hideLoading();
+                    alert(error.message || 'An error occurred while processing the file');
+                });
+            }
+            
+            // View folder button
+            viewFolderButton.addEventListener('click', () => {
+                if (outputFolder) {
+                    window.open(`/api/folder/${outputFolder}`, '_blank');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

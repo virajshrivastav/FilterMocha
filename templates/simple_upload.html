@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Standardizer for FilterMocha</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .text-orange-500 { color: #f97316; }
+        .bg-orange-500 { background-color: #f97316; }
+        .hover\:bg-orange-600:hover { background-color: #ea580c; }
+        .border-orange-500 { border-color: #f97316; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold">
+                    Column Mapping for Filter<span class="text-orange-500">Mocha</span>
+                </h1>
+                <p class="text-gray-600">
+                    Upload your Excel file and map columns to iMocha's standard template format
+                </p>
+            </header>
+
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- File Upload Section -->
+                    <div class="lg:col-span-1">
+                        <h2 class="text-xl font-bold mb-4">Upload Excel File</h2>
+                        <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer">
+                            <i class="fas fa-file-excel text-orange-500 text-4xl mb-3"></i>
+                            <p class="text-gray-600 mb-2">Drag and drop your Excel file here</p>
+                            <p class="text-gray-500 text-sm mb-4">or</p>
+                            <input type="file" id="fileInput" accept=".xlsx,.xls" class="block w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-orange-500 file:text-white
+                                hover:file:bg-orange-600">
+                        </div>
+                        <p id="selectedFileName" class="text-gray-700 mt-1"></p>
+                        <p id="fileStats" class="text-gray-500 text-sm mt-1"></p>
+
+                        <!-- Sheet Selection -->
+                        <div id="sheetSelectionContainer" class="mt-4 p-4 bg-orange-50 rounded-xl border border-orange-100 hidden">
+                            <div class="flex items-start gap-3 mb-3">
+                                <i class="fas fa-table text-orange-500 mt-1"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-1">Excel Sheets</h4>
+                                    <p class="text-sm text-gray-600">Select which sheet to process:</p>
+                                </div>
+                            </div>
+                            <select id="sheetSelector" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
+                                <option value="">Loading sheets...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Column Mapping Section -->
+                    <div class="lg:col-span-2">
+                        <h2 class="text-xl font-bold mb-4">Column Mapping</h2>
+                        <p class="text-gray-600 mb-4">
+                            Map your Excel columns to the standard format
+                        </p>
+
+                        <!-- Mapping Fields -->
+                        <div id="mappingFields" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <p class="text-gray-500 col-span-2">Upload a file to start mapping columns</p>
+                        </div>
+
+                        <!-- Custom Value Fields -->
+                        <div id="customValueFields" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        </div>
+
+                        <!-- File Splitting -->
+                        <div class="mb-6">
+                            <div class="flex items-center mb-2">
+                                <input type="checkbox" id="enableFileSplitting" class="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded" disabled>
+                                <label for="enableFileSplitting" class="ml-2 block text-sm text-gray-700">
+                                    Enable File Splitting
+                                </label>
+                                <span id="fileSplittingHint" class="ml-2 text-xs text-gray-500">(Upload a file first)</span>
+                            </div>
+                            <div id="fileSplittingOptions" class="pl-6 hidden">
+                                <div class="mb-4">
+                                    <label for="fileSplittingColumn" class="block text-sm font-medium text-gray-700 mb-1">
+                                        Split by Column
+                                    </label>
+                                    <select id="fileSplittingColumn" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
+                                        <option value="">Select a column</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Process Button -->
+                        <button id="processButton" class="w-full py-3 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Process File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsContainer" class="bg-white rounded-xl shadow-md p-6 mb-8 hidden">
+                <h2 class="text-xl font-bold mb-4">Processing Results</h2>
+
+                <div id="outputFiles" class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-lg font-semibold">Output Files</h3>
+                        <a id="downloadAllLink" href="#" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fas fa-file-archive mr-2"></i>
+                            Download All as ZIP
+                        </a>
+                    </div>
+                    <div id="outputFilesList" class="space-y-2">
+                        <!-- Output files will be listed here -->
+                    </div>
+                </div>
+
+                <div id="warningsContainer" class="mb-6 hidden">
+                    <h3 class="text-lg font-semibold mb-2">Warnings</h3>
+                    <p class="text-gray-600 mb-2">
+                        Some issues were found during processing. Download the warnings file for details.
+                    </p>
+                    <a id="warningsFileLink" href="#" class="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg hover:bg-yellow-200 transition-colors">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <span id="warningsFileName">warnings.xlsx</span>
+                    </a>
+                </div>
+
+                <div id="logFileContainer" class="mb-6">
+                    <h3 class="text-lg font-semibold mb-2">Log File</h3>
+                    <a id="logFileLink" href="#" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        <span id="logFileName">log.txt</span>
+                    </a>
+                </div>
+
+                <button id="newFileButton" class="py-3 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                    Process Another File
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+            <div class="flex justify-center mb-4">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+            </div>
+            <p id="loadingMessage" class="text-center text-gray-700 font-medium">Processing...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const selectedFileName = document.getElementById('selectedFileName');
+            const fileStats = document.getElementById('fileStats');
+            const sheetSelectionContainer = document.getElementById('sheetSelectionContainer');
+            const sheetSelector = document.getElementById('sheetSelector');
+            const mappingFields = document.getElementById('mappingFields');
+            const customValueFields = document.getElementById('customValueFields');
+            const enableFileSplitting = document.getElementById('enableFileSplitting');
+            const fileSplittingOptions = document.getElementById('fileSplittingOptions');
+            const fileSplittingColumn = document.getElementById('fileSplittingColumn');
+            const processButton = document.getElementById('processButton');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const outputFilesList = document.getElementById('outputFilesList');
+            const warningsContainer = document.getElementById('warningsContainer');
+            const warningsFileLink = document.getElementById('warningsFileLink');
+            const warningsFileName = document.getElementById('warningsFileName');
+            const logFileLink = document.getElementById('logFileLink');
+            const logFileName = document.getElementById('logFileName');
+            const newFileButton = document.getElementById('newFileButton');
+            const downloadAllLink = document.getElementById('downloadAllLink');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            // Variables
+            let currentFile = null;
+            let fileColumns = [];
+            let standardColumns = [];
+            let selectedSheet = null;
+            let outputFolder = null;  // Store the output folder path
+
+            // Initialize
+            processButton.disabled = true;
+            sheetSelectionContainer.style.display = 'none';
+
+            // Event Listeners
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZone.classList.add('bg-gray-50');
+            });
+
+            dropZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('bg-gray-50');
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('bg-gray-50');
+
+                if (e.dataTransfer.files.length) {
+                    const file = e.dataTransfer.files[0];
+                    console.log('File selected via drag and drop:', file.name);
+                    handleFileUpload(file);
+                }
+            });
+
+            fileInput.addEventListener('change', function(event) {
+                if (fileInput.files.length) {
+                    const selectedFile = fileInput.files[0];
+                    console.log('File selected via input:', selectedFile.name);
+                    handleFileUpload(selectedFile);
+                }
+            });
+
+            enableFileSplitting.addEventListener('change', function() {
+                fileSplittingOptions.classList.toggle('hidden', !enableFileSplitting.checked);
+            });
+
+            processButton.addEventListener('click', processFile);
+
+            newFileButton.addEventListener('click', function() {
+                resultsContainer.classList.add('hidden');
+                fileInput.value = '';
+                selectedFileName.textContent = '';
+                fileStats.textContent = '';
+                sheetSelectionContainer.style.display = 'none';
+                mappingFields.innerHTML = '<p class="text-gray-500 col-span-2">Upload a file to start mapping columns</p>';
+                customValueFields.innerHTML = '';
+                processButton.disabled = true;
+                enableFileSplitting.disabled = true;
+                enableFileSplitting.checked = false;
+                fileSplittingOptions.classList.add('hidden');
+                document.getElementById('fileSplittingHint').style.display = '';
+                currentFile = null;
+            });
+
+            // Add event listener for the Download All as ZIP button
+            downloadAllLink.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Check if we have a current file and output folder
+                if (currentFile && outputFolder) {
+                    // Show loading overlay
+                    showLoading('Creating ZIP file...');
+
+                    // Redirect to the download-all endpoint
+                    window.location.href = `/api/download-all/${outputFolder}`;
+
+                    // Hide loading overlay after a short delay
+                    setTimeout(function() {
+                        hideLoading();
+                    }, 2000);
+                } else {
+                    alert('No files available to download.');
+                }
+            });
+
+            // Functions
+            function handleFileUpload(file) {
+                console.log('handleFileUpload called with file:', file);
+
+                // Check if file is Excel
+                if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
+                    alert('Please upload an Excel file (.xlsx or .xls)');
+                    return;
+                }
+
+                // Update UI immediately to show the file was selected
+                selectedFileName.textContent = file.name;
+                fileStats.textContent = 'Analyzing file...';
+
+                // Show loading overlay
+                showLoading('Analyzing file...');
+
+                // Create FormData
+                const formData = new FormData();
+                formData.append('file', file);
+
+                console.log('Sending file to server:', file.name);
+
+                // Send file to server for analysis
+                fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    console.log('Server response received:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data received from server:', data);
+                    console.log('Sheet names:', data.sheet_names);
+                    console.log('Selected sheet:', data.selected_sheet);
+                    console.log('Columns:', data.columns);
+                    console.log('Standard columns:', data.standard_columns);
+
+                    // Store file information
+                    currentFile = {
+                        filename: data.filename,
+                        originalFilename: data.original_filename
+                    };
+
+                    // Store columns and standard columns
+                    fileColumns = data.columns;
+                    standardColumns = data.standard_columns;
+                    selectedSheet = data.selected_sheet;
+
+                    // Update UI
+                    selectedFileName.textContent = data.original_filename;
+                    fileStats.textContent = `${data.rows} rows, ${data.columns.length} columns`;
+
+                    // Enable process button and file splitting
+                    processButton.disabled = false;
+                    enableFileSplitting.disabled = false;
+                    document.getElementById('fileSplittingHint').style.display = 'none';
+
+                    // Always show sheet selection when a file is uploaded
+                    if (data.sheet_names && data.sheet_names.length > 0) {
+                        sheetSelectionContainer.style.display = 'block';
+                        sheetSelector.innerHTML = '';
+
+                        data.sheet_names.forEach(sheet => {
+                            const option = document.createElement('option');
+                            option.value = sheet;
+                            option.textContent = `${sheet} (${data.sheet_info[sheet].rows} rows, ${data.sheet_info[sheet].columns} columns)`;
+                            option.selected = sheet === data.selected_sheet;
+                            sheetSelector.appendChild(option);
+                        });
+
+                        // Add event listener for sheet change
+                        sheetSelector.addEventListener('change', function() {
+                            // Show loading overlay
+                            showLoading('Analyzing sheet...');
+
+                            // Get the selected sheet
+                            selectedSheet = sheetSelector.value;
+                            console.log('Selected sheet:', selectedSheet);
+
+                            // Create a new FormData object
+                            const newFormData = new FormData();
+                            newFormData.append('file', file);
+                            newFormData.append('sheet_name', selectedSheet);
+
+                            console.log('Sending file to server for sheet change:', file.name);
+
+                            // Re-analyze the file with the selected sheet
+                            fetch('/api/analyze', {
+                                method: 'POST',
+                                body: newFormData
+                            })
+                            .then(response => {
+                                console.log('Sheet change response received:', response.status);
+                                if (!response.ok) {
+                                    throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Sheet change data received:', data);
+
+                                // Check if data.columns exists
+                                if (!data.columns) {
+                                    console.error('No columns found in data');
+                                    hideLoading();
+                                    alert('Error: No columns found in the selected sheet');
+                                    return;
+                                }
+
+                                fileColumns = data.columns;
+                                selectedSheet = data.selected_sheet;
+
+                                // Update UI
+                                fileStats.textContent = `${data.rows} rows, ${data.columns.length} columns`;
+                                console.log('Updated fileStats with:', fileStats.textContent);
+
+                                // Recreate mapping fields
+                                console.log('Calling createMappingFields from sheet change handler');
+                                createMappingFields();
+
+                                // Update split column dropdown
+                                console.log('Updating split column dropdown');
+                                fileSplittingColumn.innerHTML = '<option value="">Select a column</option>';
+                                data.columns.forEach(column => {
+                                    const option = document.createElement('option');
+                                    option.value = column.name;
+                                    option.textContent = column.name;
+                                    fileSplittingColumn.appendChild(option);
+                                });
+
+                                console.log('Sheet change processing complete');
+                                hideLoading();
+                            })
+                            .catch(error => {
+                                console.error('Error in sheet change:', error);
+                                hideLoading();
+                                alert('Error analyzing sheet: ' + error.message);
+                            });
+                        });
+                    } else {
+                        sheetSelectionContainer.style.display = 'none';
+                    }
+
+                    // Create mapping fields
+                    createMappingFields();
+
+                    // Update split column dropdown
+                    fileSplittingColumn.innerHTML = '<option value="">Select a column</option>';
+                    data.columns.forEach(column => {
+                        const option = document.createElement('option');
+                        option.value = column.name;
+                        option.textContent = column.name;
+                        fileSplittingColumn.appendChild(option);
+                    });
+
+                    hideLoading();
+                })
+                .catch(error => {
+                    console.error('Error in file processing:', error);
+                    hideLoading();
+                    alert(error.message || 'An error occurred while analyzing the file');
+                });
+            }
+
+            function createMappingFields() {
+                console.log('createMappingFields called');
+                console.log('mappingFields element:', mappingFields);
+                console.log('customValueFields element:', customValueFields);
+                console.log('standardColumns:', standardColumns);
+                console.log('fileColumns:', fileColumns);
+
+                // Clear both mapping fields and custom value fields
+                mappingFields.innerHTML = '';
+                customValueFields.innerHTML = '';
+
+                // Create mapping fields for each standard column
+                standardColumns.forEach(stdCol => {
+                    // Skip certain columns that will be handled as custom values
+                    if (stdCol === 'Author' || stdCol === 'Score') {
+                        // Create custom value field
+                        const fieldContainer = document.createElement('div');
+
+                        const label = document.createElement('label');
+                        label.className = 'block text-sm font-medium text-gray-700 mb-1';
+                        label.textContent = stdCol;
+
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'custom-value-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500';
+                        input.dataset.column = stdCol;
+
+                        fieldContainer.appendChild(label);
+                        fieldContainer.appendChild(input);
+
+                        customValueFields.appendChild(fieldContainer);
+                        return;
+                    }
+
+                    // Create mapping field
+                    const fieldContainer = document.createElement('div');
+
+                    const label = document.createElement('label');
+                    label.className = 'block text-sm font-medium text-gray-700 mb-1';
+                    label.textContent = stdCol;
+
+                    const select = document.createElement('select');
+                    select.className = 'mapping-select block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500';
+                    select.dataset.column = stdCol;
+
+                    // Add empty option
+                    const emptyOption = document.createElement('option');
+                    emptyOption.value = '';
+                    emptyOption.textContent = 'Select a column';
+                    select.appendChild(emptyOption);
+
+                    // Add options for each file column
+                    fileColumns.forEach(fileCol => {
+                        const option = document.createElement('option');
+                        option.value = fileCol.name;
+                        option.textContent = fileCol.name;
+
+                        // Auto-select if names match or are similar
+                        if (fileCol.name.toLowerCase() === stdCol.toLowerCase() ||
+                            fileCol.name.toLowerCase().includes(stdCol.toLowerCase()) ||
+                            stdCol.toLowerCase().includes(fileCol.name.toLowerCase())) {
+                            option.selected = true;
+                        }
+
+                        select.appendChild(option);
+                    });
+
+                    fieldContainer.appendChild(label);
+                    fieldContainer.appendChild(select);
+
+                    // Add required indicator for required fields
+                    if (['Question Type', 'Difficulty Level', 'Question Text', 'Option (A)', 'Option (B)', 'Option (C)', 'Option (D)', 'Correct Answer'].includes(stdCol)) {
+                        const requiredIndicator = document.createElement('span');
+                        requiredIndicator.className = 'text-red-500 ml-1';
+                        requiredIndicator.textContent = '*';
+                        label.appendChild(requiredIndicator);
+                    }
+
+                    mappingFields.appendChild(fieldContainer);
+                });
+            }
+
+            function processFile() {
+                // Validate required fields
+                const requiredFields = ['Question Type', 'Difficulty Level', 'Question Text', 'Option (A)', 'Option (B)', 'Option (C)', 'Option (D)', 'Correct Answer'];
+                const mapping = {};
+                let missingFields = [];
+
+                // Get all mapping selections
+                document.querySelectorAll('.mapping-select').forEach(select => {
+                    mapping[select.dataset.column] = select.value;
+
+                    // Check if required field is missing
+                    if (requiredFields.includes(select.dataset.column) && !select.value) {
+                        missingFields.push(select.dataset.column);
+                    }
+                });
+
+                // Alert if required fields are missing
+                if (missingFields.length) {
+                    alert(`Please map the following required fields: ${missingFields.join(', ')}`);
+                    return;
+                }
+
+                // Get custom values
+                const customValues = {};
+                document.querySelectorAll('.custom-value-input').forEach(input => {
+                    customValues[input.dataset.column] = input.value;
+                });
+
+                // Get file splitting configuration
+                let splitConfig = null;
+                if (enableFileSplitting.checked && fileSplittingColumn.value) {
+                    splitConfig = {
+                        column: fileSplittingColumn.value
+                    };
+                }
+
+                // Show loading overlay
+                showLoading('Processing file...');
+
+                // Send processing request
+                fetch('/api/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        filename: currentFile.filename,
+                        mapping: mapping,
+                        custom_values: customValues,
+                        split_config: splitConfig,
+                        sheet_name: selectedSheet
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide loading overlay
+                    hideLoading();
+
+                    // Show results container
+                    resultsContainer.classList.remove('hidden');
+
+                    // Store the output folder path if available
+                    if (data.output_folder) {
+                        outputFolder = data.output_folder;
+                        console.log('Output folder:', outputFolder);
+                    }
+
+                    // Clear output files list
+                    outputFilesList.innerHTML = '';
+
+                    // Add output files
+                    data.output_files.forEach(file => {
+                        if (file.name.startsWith('error_')) {
+                            return; // Skip error file, it will be handled separately
+                        }
+
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
+
+                        const fileInfo = document.createElement('div');
+                        fileInfo.className = 'flex items-center';
+
+                        const fileIcon = document.createElement('i');
+                        fileIcon.className = 'fas fa-file-excel text-green-500 mr-3';
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = file.name;
+
+                        const fileSize = document.createElement('span');
+                        fileSize.className = 'text-gray-500 text-sm ml-2';
+                        fileSize.textContent = file.size;
+
+                        fileInfo.appendChild(fileIcon);
+                        fileInfo.appendChild(fileName);
+                        fileInfo.appendChild(fileSize);
+
+                        const fileActions = document.createElement('div');
+                        fileActions.className = 'space-x-2';
+
+                        const downloadButton = document.createElement('a');
+                        downloadButton.href = `/api/download/${file.path}`;
+                        downloadButton.className = 'px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors';
+                        downloadButton.textContent = 'Download';
+
+                        fileActions.appendChild(downloadButton);
+
+                        fileItem.appendChild(fileInfo);
+                        fileItem.appendChild(fileActions);
+
+                        outputFilesList.appendChild(fileItem);
+                    });
+
+                    // Handle warnings file
+                    if (data.warnings_file) {
+                        warningsContainer.classList.remove('hidden');
+                        warningsFileName.textContent = data.warnings_file.name;
+                        warningsFileLink.href = `/api/download/${data.warnings_file.path}`;
+                    } else {
+                        warningsContainer.classList.add('hidden');
+                    }
+
+                    // Handle log file
+                    if (data.log_file) {
+                        logFileName.textContent = data.log_file.split('/').pop();
+                        logFileLink.href = `/api/download/${data.log_file}`;
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    alert(error.message || 'An error occurred while processing the file');
+                });
+            }
+
+            function showLoading(message) {
+                loadingMessage.textContent = message || 'Processing...';
+                loadingOverlay.classList.remove('hidden');
+            }
+
+            function hideLoading() {
+                loadingOverlay.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

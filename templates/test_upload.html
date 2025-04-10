@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #f97316;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test File Upload</h1>
+        
+        <div class="form-group">
+            <label for="fileInput">Select Excel File:</label>
+            <input type="file" id="fileInput" accept=".xlsx,.xls">
+        </div>
+        
+        <button id="uploadButton">Upload File</button>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.getElementById('uploadButton');
+            const result = document.getElementById('result');
+            
+            uploadButton.addEventListener('click', function() {
+                if (!fileInput.files.length) {
+                    result.textContent = 'Please select a file first';
+                    return;
+                }
+                
+                const file = fileInput.files[0];
+                result.textContent = 'Uploading file: ' + file.name;
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    result.textContent += '\nResponse status: ' + response.status;
+                    return response.json();
+                })
+                .then(data => {
+                    result.textContent += '\nResponse data: ' + JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    result.textContent += '\nError: ' + error.message;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

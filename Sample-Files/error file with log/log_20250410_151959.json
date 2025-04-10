@@ -1,0 +1,79 @@
+{
+  "file_name": "20250410_151826_QET_GW_Skill_questions_2024_1.xlsx",
+  "processing_time": "2025-04-10 15:19:59",
+  "entries": [
+    {
+      "timestamp": "2025-04-10 15:18:17",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151817_Technical_Assessments-ERP-Biogen.xlsx (sheet: Base Questions) with 40 rows and 9 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:18:19",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151819_Technical_Assessments-ERP-Biogen.xlsx (sheet: WMS Techno-Functional) with 45 rows and 9 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:18:26",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151826_QET_GW_Skill_questions_2024_1.xlsx (sheet: Skill_questions_new) with 1194 rows and 16 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:18:29",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151829_QET_GW_Skill_questions_2024_1.xlsx (sheet: Summary) with 149 rows and 4 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:18:30",
+      "action": "Error",
+      "details": "Failed to analyze file: Requested sheet 'Summary' not found in the Excel file. Available sheets: Base Questions, GTM Developer, GTM Techno-Functional, WMS Techno-Functional, SCM Techno-Functional"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:21",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151920_QET_GW_Skill_questions_2024_1.xlsx (sheet: Skill_questions_new) with 1194 rows and 16 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:21",
+      "action": "Error",
+      "details": "Failed to analyze file: Requested sheet 'Skill_questions_new' not found in the Excel file. Available sheets: Base Questions, GTM Developer, GTM Techno-Functional, WMS Techno-Functional, SCM Techno-Functional"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "File Analysis",
+      "details": "Analyzed file 20250410_151826_QET_GW_Skill_questions_2024_1.xlsx (sheet: Skill_questions_new) with 1194 rows and 16 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "File Loaded",
+      "details": "Loaded file 20250410_151826_QET_GW_Skill_questions_2024_1.xlsx with 1194 rows and 16 columns"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "Mapping Applied",
+      "details": "Applied mapping configuration"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "File Split",
+      "details": "Created split file for SubSkill=\"Author\" with 226 rows"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "File Split",
+      "details": "Created split file for SubSkill=\"Author\" with 279 rows"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:58",
+      "action": "File Split",
+      "details": "Created split file for SubSkill=\"Author\" with 585 rows"
+    },
+    {
+      "timestamp": "2025-04-10 15:19:59",
+      "action": "File Split",
+      "details": "Created split file for SubSkill=\"Author\" with 104 rows"
+    }
+  ],
+  "errors": [
+    "Required column 'Option (E)' not mapped or not found"
+  ]
+}

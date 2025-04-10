@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Standardizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-bottom: 50px;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            margin-bottom: 20px;
+        }
+        .step-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px 5px 0 0;
+        }
+        .step-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 5px 5px;
+        }
+        .mapping-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .mapping-row:last-child {
+            border-bottom: none;
+        }
+        .sample-values {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .badge-sample {
+            background-color: #f8f9fa;
+            color: #212529;
+            margin-right: 5px;
+            padding: 5px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+        }
+        .preview-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+        .error-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .step-indicator-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        .step-indicator-item::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #dee2e6;
+            z-index: 1;
+        }
+        .step-indicator-item:last-child::after {
+            display: none;
+        }
+        .step-indicator-item.active {
+            font-weight: bold;
+        }
+        .step-indicator-item.active .step-number {
+            background-color: #007bff;
+            color: white;
+        }
+        .step-indicator-item.completed .step-number {
+            background-color: #28a745;
+            color: white;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            margin-bottom: 5px;
+            z-index: 2;
+            position: relative;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-spinner {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="display-5">Excel File Standardizer</h1>
+                <p class="lead">Upload, map, and standardize your Excel files</p>
+            </div>
+        </div>
+
+        <div class="step-indicator">
+            <div class="step-indicator-item active" id="step1-indicator">
+                <div class="step-number">1</div>
+                <div>Upload File</div>
+            </div>
+            <div class="step-indicator-item" id="step2-indicator">
+                <div class="step-number">2</div>
+                <div>Configure Mapping</div>
+            </div>
+            <div class="step-indicator-item" id="step3-indicator">
+                <div class="step-number">3</div>
+                <div>Results</div>
+            </div>
+        </div>
+
+        <!-- Step 1: File Upload -->
+        <div id="step1" class="step-container">
+            <div class="card">
+                <div class="step-header">
+                    <h5 class="mb-0">Step 1: Upload Excel File</h5>
+                </div>
+                <div class="step-content">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="fileInput" class="form-label">Select Excel File</label>
+                            <input type="file" class="form-control" id="fileInput" name="file" accept=".xlsx,.xls">
+                            <div class="form-text">Upload the Excel file you want to standardize.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload & Analyze</button>
+                    </form>
+                    <div id="uploadStatus" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Column Mapping -->
+        <div id="step2" class="step-container d-none">
+            <div class="card">
+                <div class="step-header">
+                    <h5 class="mb-0">Step 2: Configure Column Mapping</h5>
+                </div>
+                <div class="step-content">
+                    <p>Map columns from your file to the standard format:</p>
+                    <form id="mappingForm">
+                        <input type="hidden" id="filePath" name="filePath">
+                        
+                        <div id="mappingContainer" class="mb-4">
+                            <!-- Mapping fields will be added here dynamically -->
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">File Splitting (Optional)</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="enableSplitting">
+                                    <label class="form-check-label" for="enableSplitting">
+                                        Split file based on a column
+                                    </label>
+                                </div>
+                                <div id="splitOptions" class="d-none">
+                                    <div class="mb-3">
+                                        <label for="splitColumn" class="form-label">Select column for splitting:</label>
+                                        <select class="form-select" id="splitColumn">
+                                            <!-- Options will be added dynamically -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" id="backToStep1">Back</button>
+                            <button type="button" class="btn btn-info" id="previewButton">Preview</button>
+                            <button type="submit" class="btn btn-primary">Process File</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div id="step3" class="step-container d-none">
+            <div class="card">
+                <div class="step-header">
+                    <h5 class="mb-0">Step 3: Results</h5>
+                </div>
+                <div class="step-content">
+                    <div id="processingStatus"></div>
+                    
+                    <div id="errorContainer" class="d-none">
+                        <h6 class="text-danger">Errors/Warnings:</h6>
+                        <div class="error-list">
+                            <ul id="errorList" class="list-group mb-4"></ul>
+                        </div>
+                    </div>
+                    
+                    <div id="outputContainer" class="d-none">
+                        <h6>Output Files:</h6>
+                        <ul id="outputList" class="list-group mb-4"></ul>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-secondary" id="backToStep2">Back</button>
+                        <button type="button" class="btn btn-primary" id="startNewButton">Start New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">Mapping Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="preview-table">
+                        <table class="table table-striped table-bordered" id="previewTable">
+                            <thead>
+                                <tr id="previewTableHeader"></tr>
+                            </thead>
+                            <tbody id="previewTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="previewErrors" class="mt-3 d-none">
+                        <h6 class="text-warning">Warnings:</h6>
+                        <ul id="previewErrorList" class="list-group"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay d-none" id="loadingOverlay">
+        <div class="spinner-border loading-spinner text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const uploadForm = document.getElementById('uploadForm');
+            const mappingForm = document.getElementById('mappingForm');
+            const filePathInput = document.getElementById('filePath');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const mappingContainer = document.getElementById('mappingContainer');
+            const splitColumn = document.getElementById('splitColumn');
+            const enableSplitting = document.getElementById('enableSplitting');
+            const splitOptions = document.getElementById('splitOptions');
+            const previewButton = document.getElementById('previewButton');
+            const processingStatus = document.getElementById('processingStatus');
+            const errorContainer = document.getElementById('errorContainer');
+            const errorList = document.getElementById('errorList');
+            const outputContainer = document.getElementById('outputContainer');
+            const outputList = document.getElementById('outputList');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            // Step navigation buttons
+            const backToStep1 = document.getElementById('backToStep1');
+            const backToStep2 = document.getElementById('backToStep2');
+            const startNewButton = document.getElementById('startNewButton');
+            
+            // Step containers
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            
+            // Step indicators
+            const step1Indicator = document.getElementById('step1-indicator');
+            const step2Indicator = document.getElementById('step2-indicator');
+            const step3Indicator = document.getElementById('step3-indicator');
+            
+            // Preview modal elements
+            const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+            const previewTableHeader = document.getElementById('previewTableHeader');
+            const previewTableBody = document.getElementById('previewTableBody');
+            const previewErrors = document.getElementById('previewErrors');
+            const previewErrorList = document.getElementById('previewErrorList');
+            
+            // Store data
+            let fileColumns = [];
+            let standardColumns = [];
+            
+            // Event listeners
+            uploadForm.addEventListener('submit', handleFileUpload);
+            mappingForm.addEventListener('submit', handleFileProcessing);
+            backToStep1.addEventListener('click', () => showStep(1));
+            backToStep2.addEventListener('click', () => showStep(2));
+            startNewButton.addEventListener('click', () => showStep(1));
+            previewButton.addEventListener('click', handlePreviewRequest);
+            enableSplitting.addEventListener('change', toggleSplitOptions);
+            
+            // File upload handler
+            function handleFileUpload(e) {
+                e.preventDefault();
+                
+                const fileInput = document.getElementById('fileInput');
+                if (!fileInput.files.length) {
+                    showAlert(uploadStatus, 'Please select a file to upload', 'danger');
+                    return;
+                }
+                
+                const file = fileInput.files[0];
+                if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
+                    showAlert(uploadStatus, 'Please select an Excel file (.xlsx or .xls)', 'danger');
+                    return;
+                }
+                
+                // Show loading overlay
+                loadingOverlay.classList.remove('d-none');
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    if (data.error) {
+                        showAlert(uploadStatus, data.error, 'danger');
+                        return;
+                    }
+                    
+                    // Store data
+                    fileColumns = data.columns;
+                    standardColumns = data.standard_columns;
+                    filePathInput.value = data.file_path;
+                    
+                    // Generate mapping form
+                    generateMappingForm();
+                    
+                    // Show success message
+                    showAlert(uploadStatus, 'File uploaded and analyzed successfully!', 'success');
+                    
+                    // Move to step 2
+                    setTimeout(() => showStep(2), 1000);
+                })
+                .catch(error => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    console.error('Error:', error);
+                    showAlert(uploadStatus, 'An error occurred during file upload', 'danger');
+                });
+            }
+            
+            // Generate mapping form based on standard columns and file columns
+            function generateMappingForm() {
+                mappingContainer.innerHTML = '';
+                
+                // Create mapping fields for each standard column
+                standardColumns.forEach(stdCol => {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'mapping-row';
+                    
+                    const labelDiv = document.createElement('div');
+                    labelDiv.className = 'mb-2';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'form-label';
+                    
+                    // Add required indicator for required fields
+                    const optionalFields = [
+                        'Recording Time Limit:(Upto 5 mins)',
+                        'Retake Allowed:(Upto 5 mins)',
+                        'Set Prep Time (0.5 to 5 mins)',
+                        'Proofreading Status',
+                        'Editor Email',
+                        'Differential Scoring',
+                        'Answer Explanation'
+                    ];
+                    
+                    if (!optionalFields.includes(stdCol)) {
+                        label.classList.add('required-field');
+                    }
+                    
+                    label.textContent = stdCol;
+                    labelDiv.appendChild(label);
+                    rowDiv.appendChild(labelDiv);
+                    
+                    const selectDiv = document.createElement('div');
+                    const select = document.createElement('select');
+                    select.className = 'form-select';
+                    select.name = `mapping[${stdCol}]`;
+                    select.id = `mapping_${stdCol.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    
+                    // Add empty option
+                    const emptyOption = document.createElement('option');
+                    emptyOption.value = '';
+                    emptyOption.textContent = '-- Select Column --';
+                    select.appendChild(emptyOption);
+                    
+                    // Add options for each file column
+                    fileColumns.forEach(col => {
+                        const option = document.createElement('option');
+                        option.value = col.name;
+                        option.textContent = `${col.letter}: ${col.name}`;
+                        
+                        // Try to auto-select based on column name similarity
+                        if (col.name.toLowerCase().includes(stdCol.toLowerCase()) || 
+                            stdCol.toLowerCase().includes(col.name.toLowerCase())) {
+                            option.selected = true;
+                        }
+                        
+                        select.appendChild(option);
+                    });
+                    
+                    selectDiv.appendChild(select);
+                    
+                    // Add sample values display
+                    const sampleDiv = document.createElement('div');
+                    sampleDiv.className = 'sample-values mt-1';
+                    
+                    // Update sample values when selection changes
+                    select.addEventListener('change', function() {
+                        const selectedColumn = this.value;
+                        if (selectedColumn) {
+                            const column = fileColumns.find(col => col.name === selectedColumn);
+                            if (column && column.sample_values.length) {
+                                sampleDiv.innerHTML = '<strong>Sample values:</strong> ';
+                                column.sample_values.forEach(val => {
+                                    const badge = document.createElement('span');
+                                    badge.className = 'badge-sample';
+                                    badge.textContent = val;
+                                    sampleDiv.appendChild(badge);
+                                });
+                            } else {
+                                sampleDiv.innerHTML = '<strong>No sample values available</strong>';
+                            }
+                        } else {
+                            sampleDiv.innerHTML = '';
+                        }
+                    });
+                    
+                    // Trigger change event to show initial sample values
+                    if (select.value) {
+                        const event = new Event('change');
+                        select.dispatchEvent(event);
+                    }
+                    
+                    selectDiv.appendChild(sampleDiv);
+                    rowDiv.appendChild(selectDiv);
+                    mappingContainer.appendChild(rowDiv);
+                });
+                
+                // Populate split column dropdown with all file columns
+                splitColumn.innerHTML = '';
+                fileColumns.forEach(col => {
+                    const option = document.createElement('option');
+                    option.value = col.name;
+                    option.textContent = `${col.letter}: ${col.name}`;
+                    splitColumn.appendChild(option);
+                });
+            }
+            
+            // Toggle split options visibility
+            function toggleSplitOptions() {
+                if (enableSplitting.checked) {
+                    splitOptions.classList.remove('d-none');
+                } else {
+                    splitOptions.classList.add('d-none');
+                }
+            }
+            
+            // Handle file processing
+            function handleFileProcessing(e) {
+                e.preventDefault();
+                
+                // Collect mapping configuration
+                const mappingConfig = {};
+                standardColumns.forEach(stdCol => {
+                    const selectId = `mapping_${stdCol.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    const select = document.getElementById(selectId);
+                    if (select && select.value) {
+                        mappingConfig[stdCol] = select.value;
+                    } else {
+                        mappingConfig[stdCol] = '';
+                    }
+                });
+                
+                // Collect split configuration
+                const splitConfig = {
+                    enabled: enableSplitting.checked,
+                    column: enableSplitting.checked ? splitColumn.value : ''
+                };
+                
+                // Show loading overlay
+                loadingOverlay.classList.remove('d-none');
+                
+                // Send processing request
+                fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        file_path: filePathInput.value,
+                        mapping: mappingConfig,
+                        split: splitConfig
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    if (data.error) {
+                        showAlert(processingStatus, data.error, 'danger');
+                        return;
+                    }
+                    
+                    // Show success message
+                    showAlert(processingStatus, 'File processed successfully!', 'success');
+                    
+                    // Display errors if any
+                    if (data.errors && data.errors.length) {
+                        errorContainer.classList.remove('d-none');
+                        errorList.innerHTML = '';
+                        
+                        data.errors.forEach(error => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item list-group-item-warning';
+                            li.textContent = error;
+                            errorList.appendChild(li);
+                        });
+                    } else {
+                        errorContainer.classList.add('d-none');
+                    }
+                    
+                    // Display output files
+                    if (data.output_files && data.output_files.length) {
+                        outputContainer.classList.remove('d-none');
+                        outputList.innerHTML = '';
+                        
+                        // Add data file(s)
+                        data.output_files.forEach(file => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                            
+                            const fileIcon = document.createElement('i');
+                            fileIcon.className = 'bi bi-file-earmark-excel me-2';
+                            
+                            const fileSpan = document.createElement('span');
+                            fileSpan.textContent = file;
+                            
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = `/download/${file}`;
+                            downloadLink.className = 'btn btn-sm btn-outline-primary';
+                            downloadLink.textContent = 'Download';
+                            
+                            li.appendChild(fileIcon);
+                            li.appendChild(fileSpan);
+                            li.appendChild(downloadLink);
+                            outputList.appendChild(li);
+                        });
+                        
+                        // Add log file
+                        if (data.log_file) {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                            
+                            const fileIcon = document.createElement('i');
+                            fileIcon.className = 'bi bi-file-earmark-text me-2';
+                            
+                            const fileSpan = document.createElement('span');
+                            fileSpan.textContent = data.log_file + ' (Processing Log)';
+                            
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = `/download/${data.log_file}`;
+                            downloadLink.className = 'btn btn-sm btn-outline-secondary';
+                            downloadLink.textContent = 'Download Log';
+                            
+                            li.appendChild(fileIcon);
+                            li.appendChild(fileSpan);
+                            li.appendChild(downloadLink);
+                            outputList.appendChild(li);
+                        }
+                    } else {
+                        outputContainer.classList.add('d-none');
+                    }
+                    
+                    // Move to step 3
+                    showStep(3);
+                })
+                .catch(error => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    console.error('Error:', error);
+                    showAlert(processingStatus, 'An error occurred during file processing', 'danger');
+                });
+            }
+            
+            // Handle preview request
+            function handlePreviewRequest() {
+                // Collect mapping configuration
+                const mappingConfig = {};
+                standardColumns.forEach(stdCol => {
+                    const selectId = `mapping_${stdCol.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    const select = document.getElementById(selectId);
+                    if (select && select.value) {
+                        mappingConfig[stdCol] = select.value;
+                    } else {
+                        mappingConfig[stdCol] = '';
+                    }
+                });
+                
+                // Show loading overlay
+                loadingOverlay.classList.remove('d-none');
+                
+                // Send preview request
+                fetch('/preview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        file_path: filePathInput.value,
+                        mapping: mappingConfig
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    if (data.error) {
+                        showAlert(mappingForm, data.error, 'danger');
+                        return;
+                    }
+                    
+                    // Generate preview table
+                    generatePreviewTable(data.preview);
+                    
+                    // Display errors if any
+                    if (data.errors && data.errors.length) {
+                        previewErrors.classList.remove('d-none');
+                        previewErrorList.innerHTML = '';
+                        
+                        data.errors.forEach(error => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item list-group-item-warning';
+                            li.textContent = error;
+                            previewErrorList.appendChild(li);
+                        });
+                    } else {
+                        previewErrors.classList.add('d-none');
+                    }
+                    
+                    // Show preview modal
+                    previewModal.show();
+                })
+                .catch(error => {
+                    // Hide loading overlay
+                    loadingOverlay.classList.add('d-none');
+                    
+                    console.error('Error:', error);
+                    showAlert(mappingForm, 'An error occurred generating preview', 'danger');
+                });
+            }
+            
+            // Generate preview table
+            function generatePreviewTable(previewData) {
+                if (!previewData || !previewData.length) {
+                    previewTableHeader.innerHTML = '<th>No preview data available</th>';
+                    previewTableBody.innerHTML = '';
+                    return;
+                }
+                
+                // Generate header row
+                previewTableHeader.innerHTML = '';
+                Object.keys(previewData[0]).forEach(key => {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    previewTableHeader.appendChild(th);
+                });
+                
+                // Generate data rows
+                previewTableBody.innerHTML = '';
+                previewData.forEach(row => {
+                    const tr = document.createElement('tr');
+                    
+                    Object.values(row).forEach(value => {
+                        const td = document.createElement('td');
+                        td.textContent = value;
+                        tr.appendChild(td);
+                    });
+                    
+                    previewTableBody.appendChild(tr);
+                });
+            }
+            
+            // Show step by number
+            function showStep(stepNumber) {
+                // Hide all steps
+                step1.classList.add('d-none');
+                step2.classList.add('d-none');
+                step3.classList.add('d-none');
+                
+                // Reset step indicators
+                step1Indicator.className = 'step-indicator-item';
+                step2Indicator.className = 'step-indicator-item';
+                step3Indicator.className = 'step-indicator-item';
+                
+                // Show requested step
+                if (stepNumber === 1) {
+                    step1.classList.remove('d-none');
+                    step1Indicator.className = 'step-indicator-item active';
+                    // Reset forms
+                    uploadForm.reset();
+                    uploadStatus.innerHTML = '';
+                } else if (stepNumber === 2) {
+                    step2.classList.remove('d-none');
+                    step1Indicator.className = 'step-indicator-item completed';
+                    step2Indicator.className = 'step-indicator-item active';
+                } else if (stepNumber === 3) {
+                    step3.classList.remove('d-none');
+                    step1Indicator.className = 'step-indicator-item completed';
+                    step2Indicator.className = 'step-indicator-item completed';
+                    step3Indicator.className = 'step-indicator-item active';
+                }
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+            
+            // Show alert message
+            function showAlert(container, message, type) {
+                container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
