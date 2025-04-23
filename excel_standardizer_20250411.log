@@ -1,0 +1,361 @@
+2025-04-11 00:02:59,192 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://192.168.123.189:5051
+2025-04-11 00:02:59,192 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 00:03:16,987 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://192.168.123.189:5051
+2025-04-11 00:03:16,991 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 00:10:04,087 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://192.168.123.189:5051
+2025-04-11 00:10:04,087 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 00:10:30,325 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 00:10:30] "GET / HTTP/1.1" 200 -
+2025-04-11 00:10:54,672 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://192.168.123.189:5051
+2025-04-11 00:10:54,672 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 00:11:10,832 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://192.168.123.189:5051
+2025-04-11 00:11:10,832 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 00:11:28,250 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 00:11:28] "GET / HTTP/1.1" 200 -
+2025-04-11 11:28:08,302 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 11:28:08,304 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 11:28:21,066 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:28:21] "GET / HTTP/1.1" 200 -
+2025-04-11 11:28:35,642 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'PeopleSoft_Finance_Questions_v1.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 11:28:35,642 - __main__ - INFO - File received: PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 11:28:35,648 - __main__ - INFO - Sheet name from request: None
+2025-04-11 11:28:35,648 - __main__ - INFO - Checking if file is valid: uploads\20250411_112835_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 11:28:36,227 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 11:28:36,227 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_112835_PeopleSoft_Finance_Questions_v1.xlsx, sheet: None
+2025-04-11 11:28:36,303 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 11:28:36,607 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:36,671 - __main__ - INFO - File analyzed successfully. Found 15 columns, 528 rows, 1 sheets, selected sheet: PeopleSoft FSCM Questions
+2025-04-11 11:28:36,697 - __main__ - INFO - Got 19 standard columns
+2025-04-11 11:28:36,697 - __main__ - INFO - Sending response with 15 columns and 1 sheets
+2025-04-11 11:28:36,699 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:28:36] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 11:28:44,766 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'Assessment Questions - Oracle Apex.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 11:28:44,767 - __main__ - INFO - File received: Assessment Questions - Oracle Apex.xlsx
+2025-04-11 11:28:44,768 - __main__ - INFO - Sheet name from request: None
+2025-04-11 11:28:44,769 - __main__ - INFO - Checking if file is valid: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-11 11:28:44,837 - __main__ - INFO - File is valid. Available sheets: ['Data', 'Usage Instructions', 'Sample', 'Sheet1', 'Oracle Apex Questions']
+2025-04-11 11:28:44,838 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: None
+2025-04-11 11:28:44,969 - excel_standardizer_improved - INFO - Found sheets in file: Data, Usage Instructions, Sample, Sheet1, Oracle Apex Questions
+2025-04-11 11:28:45,071 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:45,252 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:45,311 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:45,444 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:45,478 - __main__ - INFO - File analyzed successfully. Found 15 columns, 20 rows, 5 sheets, selected sheet: Sheet1
+2025-04-11 11:28:45,495 - __main__ - INFO - Got 19 standard columns
+2025-04-11 11:28:45,496 - __main__ - INFO - Sending response with 15 columns and 5 sheets
+2025-04-11 11:28:45,497 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:28:45] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 11:28:49,867 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'Assessment Questions - Oracle Apex.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 11:28:49,869 - __main__ - INFO - File received: Assessment Questions - Oracle Apex.xlsx
+2025-04-11 11:28:49,879 - __main__ - INFO - Sheet name from request: Oracle Apex Questions
+2025-04-11 11:28:49,880 - __main__ - INFO - Checking if file is valid: uploads\20250411_112849_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-11 11:28:49,882 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'PeopleSoft_Finance_Questions_v1.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 11:28:49,883 - __main__ - INFO - File received: PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 11:28:49,984 - __main__ - INFO - File is valid. Available sheets: ['Data', 'Usage Instructions', 'Sample', 'Sheet1', 'Oracle Apex Questions']
+2025-04-11 11:28:49,985 - __main__ - INFO - Sheet 'Oracle Apex Questions' found (exact match)
+2025-04-11 11:28:49,986 - __main__ - INFO - Checking if sheet 'Oracle Apex Questions' is readable
+2025-04-11 11:28:49,990 - __main__ - INFO - Sheet name from request: Oracle Apex Questions
+2025-04-11 11:28:49,992 - __main__ - INFO - Checking if file is valid: uploads\20250411_112849_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 11:28:50,203 - __main__ - INFO - Sheet 'Oracle Apex Questions' is readable. Shape: (140, 15), Columns: ['Q type ', 'Level', 'Category', 'Skill', 'Topic', 'Subtopic', 'Q text', 'Option/ Answer 1', 'Option/ Answer 2', 'Option/ Answer 3', 'Option/ Answer 4', 'Option/ Answer 5', 'Option/ Answer 6', 'Correct Answer', "Author's Email id(optional)"]
+2025-04-11 11:28:50,216 - __main__ - WARNING - Column 'Option/ Answer 1' has mixed data types: str, bool, int
+2025-04-11 11:28:50,219 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 11:28:50,221 - __main__ - WARNING - Column 'Option/ Answer 2' has mixed data types: str, bool, int
+2025-04-11 11:28:50,221 - __main__ - WARNING - Sheet 'Oracle Apex Questions' not found in file. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 11:28:50,223 - __main__ - WARNING - Column 'Option/ Answer 3' has mixed data types: str, int
+2025-04-11 11:28:50,223 - __main__ - INFO - Checking if sheet 'Oracle Apex Questions' is readable
+2025-04-11 11:28:50,225 - __main__ - WARNING - Column 'Option/ Answer 4' has mixed data types: str, int
+2025-04-11 11:28:50,228 - __main__ - WARNING - Column 'Correct Answer' has mixed data types: int, str
+2025-04-11 11:28:50,230 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_112849_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: Oracle Apex Questions
+2025-04-11 11:28:50,389 - __main__ - ERROR - Error reading sheet 'Oracle Apex Questions': Worksheet named 'Oracle Apex Questions' not found
+2025-04-11 11:28:50,398 - excel_standardizer_improved - INFO - Found sheets in file: Data, Usage Instructions, Sample, Sheet1, Oracle Apex Questions
+2025-04-11 11:28:50,473 - __main__ - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\RC\Documents\augment-projects\FilterMocha-Backup\fixed_app.py", line 140, in analyze_file
+    df = pd.read_excel(file_path, sheet_name=sheet_name)
+  File "C:\Users\RC\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\excel\_base.py", line 508, in read_excel
+    data = io.parse(
+        sheet_name=sheet_name,
+    ...<21 lines>...
+        dtype_backend=dtype_backend,
+    )
+  File "C:\Users\RC\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\excel\_base.py", line 1616, in parse
+    return self._reader.parse(
+           ~~~~~~~~~~~~~~~~~~^
+        sheet_name=sheet_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<17 lines>...
+        **kwds,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\RC\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\excel\_base.py", line 773, in parse
+    sheet = self.get_sheet_by_name(asheetname)
+  File "C:\Users\RC\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\excel\_openpyxl.py", line 582, in get_sheet_by_name
+    self.raise_if_bad_sheet_by_name(name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\RC\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\excel\_base.py", line 624, in raise_if_bad_sheet_by_name
+    raise ValueError(f"Worksheet named '{name}' not found")
+ValueError: Worksheet named 'Oracle Apex Questions' not found
+
+2025-04-11 11:28:50,477 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_112849_PeopleSoft_Finance_Questions_v1.xlsx, sheet: Oracle Apex Questions
+2025-04-11 11:28:50,530 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:50,693 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 11:28:51,123 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:51,144 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:51,195 - excel_standardizer_improved - ERROR - Error analyzing file: Requested sheet 'Oracle Apex Questions' not found in the Excel file. Available sheets: PeopleSoft FSCM Questions
+2025-04-11 11:28:51,196 - __main__ - ERROR - Error in standardizer.analyze_file: Requested sheet 'Oracle Apex Questions' not found in the Excel file. Available sheets: PeopleSoft FSCM Questions
+2025-04-11 11:28:51,230 - __main__ - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\RC\Documents\augment-projects\FilterMocha-Backup\fixed_app.py", line 165, in analyze_file
+    columns_info, file_shape, sheet_names, selected_sheet, sheet_info = standardizer.analyze_file(file_path, sheet_name)
+                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RC\Documents\augment-projects\FilterMocha-Backup\excel_standardizer_improved.py", line 189, in analyze_file
+    raise ValueError(f"Requested sheet '{sheet_name}' not found in the Excel file. Available sheets: {available_sheets}")
+ValueError: Requested sheet 'Oracle Apex Questions' not found in the Excel file. Available sheets: PeopleSoft FSCM Questions
+
+2025-04-11 11:28:51,292 - __main__ - INFO - Sending response with empty data due to error
+2025-04-11 11:28:51,297 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:28:51] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 11:28:51,307 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:51,450 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:28:51,475 - excel_standardizer_improved - INFO - Using exact sheet name match: 'Oracle Apex Questions'
+2025-04-11 11:28:51,481 - __main__ - INFO - File analyzed successfully. Found 15 columns, 140 rows, 5 sheets, selected sheet: Oracle Apex Questions
+2025-04-11 11:28:51,499 - __main__ - INFO - Got 19 standard columns
+2025-04-11 11:28:51,500 - __main__ - INFO - Sending response with 15 columns and 5 sheets
+2025-04-11 11:28:51,501 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:28:51] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 11:29:28,691 - __main__ - INFO - Verifying file and sheet before processing: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: Oracle Apex Questions
+2025-04-11 11:29:28,755 - __main__ - INFO - File is valid. Available sheets: ['Data', 'Usage Instructions', 'Sample', 'Sheet1', 'Oracle Apex Questions']
+2025-04-11 11:29:28,756 - __main__ - INFO - Sheet 'Oracle Apex Questions' found (exact match)
+2025-04-11 11:29:28,757 - __main__ - INFO - Processing file: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: Oracle Apex Questions, mapping: {'Question Type': 'Q type', 'Difficulty Level': 'Level', 'Question Text': 'Q text', 'Option (A)': 'Option/ Answer 1', 'Option (B)': 'Option/ Answer 2', 'Option (C)': 'Option/ Answer 3', 'Option (D)': 'Option/ Answer 4', 'Option (E)': '', 'Correct Answer': 'Correct Answer', 'Answer Explanation': '', 'Topics': 'Topic', 'Recording Time Limit:(Upto 5 mins)': '', 'Retake Allowed:(Upto 5 mins)': '', 'Set Prep Time (0.5 to 5 mins)': '', 'Proofreading Status': '', 'Editor Email': '', 'Differential Scoring': ''}
+2025-04-11 11:29:28,835 - excel_standardizer_improved - INFO - Found sheets in file: Data, Usage Instructions, Sample, Sheet1, Oracle Apex Questions
+2025-04-11 11:29:28,939 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:29:29,133 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:29:29,235 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:29:29,380 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:29:29,406 - excel_standardizer_improved - INFO - Using exact sheet name match: 'Oracle Apex Questions'
+2025-04-11 11:29:29,414 - excel_standardizer_improved - INFO - Using sheet 'Oracle Apex Questions' for processing
+2025-04-11 11:29:29,582 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:29:29,611 - excel_standardizer_improved - INFO - Processing file with 140 rows and 15 columns
+2025-04-11 11:29:29,611 - excel_standardizer_improved - INFO - Columns: ['Q type', 'Level', 'Category', 'Skill', 'Topic', 'Subtopic', 'Q text', 'Option/ Answer 1', 'Option/ Answer 2', 'Option/ Answer 3', 'Option/ Answer 4', 'Option/ Answer 5', 'Option/ Answer 6', 'Correct Answer', "Author's Email id(optional)"]
+2025-04-11 11:29:29,629 - excel_standardizer_improved - INFO - Using exact column match: 'Q type'
+2025-04-11 11:29:29,644 - excel_standardizer_improved - INFO - Using exact column match: 'Level'
+2025-04-11 11:29:29,650 - excel_standardizer_improved - INFO - Using exact column match: 'Q text'
+2025-04-11 11:29:29,651 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 1'
+2025-04-11 11:29:29,652 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 2'
+2025-04-11 11:29:29,653 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 3'
+2025-04-11 11:29:29,654 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 4'
+2025-04-11 11:29:29,655 - excel_standardizer_improved - INFO - Using exact column match: 'Correct Answer'
+2025-04-11 11:29:29,665 - excel_standardizer_improved - INFO - Using exact column match: 'Topic'
+2025-04-11 11:29:30,230 - __main__ - INFO - File processed successfully. Output files: ['Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Migration and Export.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Authentication and Security.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Apex Application Development and Design.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Database and SQL.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Reports and Forms.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Apex History and Architecture.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\APEX Components and Features.xlsx']
+2025-04-11 11:29:30,286 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:29:30] "POST /api/process HTTP/1.1" 200 -
+2025-04-11 11:29:34,031 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:29:34] "GET /api/download-all/20250411_112844_Assessment_Questions_-_Oracle_Apex HTTP/1.1" 200 -
+2025-04-11 11:30:09,877 - __main__ - INFO - Downloading file: Processed-Files\20250411_112844_Assessment_Questions_-_Oracle_Apex/error_20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-11 11:30:09,878 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:30:09] "GET /api/download/20250411_112844_Assessment_Questions_-_Oracle_Apex/error_20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx HTTP/1.1" 200 -
+2025-04-11 11:30:27,755 - __main__ - INFO - Verifying file and sheet before processing: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: Oracle Apex Questions
+2025-04-11 11:30:27,791 - __main__ - INFO - File is valid. Available sheets: ['Data', 'Usage Instructions', 'Sample', 'Sheet1', 'Oracle Apex Questions']
+2025-04-11 11:30:27,791 - __main__ - INFO - Sheet 'Oracle Apex Questions' found (exact match)
+2025-04-11 11:30:27,791 - __main__ - INFO - Processing file: uploads\20250411_112844_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: Oracle Apex Questions, mapping: {'Question Type': 'Q type', 'Difficulty Level': 'Level', 'Question Text': 'Q text', 'Option (A)': 'Option/ Answer 1', 'Option (B)': 'Option/ Answer 2', 'Option (C)': 'Option/ Answer 3', 'Option (D)': 'Option/ Answer 4', 'Option (E)': 'Option/ Answer 5', 'Correct Answer': 'Correct Answer', 'Answer Explanation': '', 'Topics': 'Topic', 'Recording Time Limit:(Upto 5 mins)': '', 'Retake Allowed:(Upto 5 mins)': '', 'Set Prep Time (0.5 to 5 mins)': '', 'Proofreading Status': '', 'Editor Email': '', 'Differential Scoring': ''}
+2025-04-11 11:30:27,836 - excel_standardizer_improved - INFO - Found sheets in file: Data, Usage Instructions, Sample, Sheet1, Oracle Apex Questions
+2025-04-11 11:30:27,883 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:30:27,964 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:30:28,008 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:30:28,065 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:30:28,075 - excel_standardizer_improved - INFO - Using exact sheet name match: 'Oracle Apex Questions'
+2025-04-11 11:30:28,078 - excel_standardizer_improved - INFO - Using sheet 'Oracle Apex Questions' for processing
+2025-04-11 11:30:28,125 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 11:30:28,135 - excel_standardizer_improved - INFO - Processing file with 140 rows and 15 columns
+2025-04-11 11:30:28,135 - excel_standardizer_improved - INFO - Columns: ['Q type', 'Level', 'Category', 'Skill', 'Topic', 'Subtopic', 'Q text', 'Option/ Answer 1', 'Option/ Answer 2', 'Option/ Answer 3', 'Option/ Answer 4', 'Option/ Answer 5', 'Option/ Answer 6', 'Correct Answer', "Author's Email id(optional)"]
+2025-04-11 11:30:28,144 - excel_standardizer_improved - INFO - Using exact column match: 'Q type'
+2025-04-11 11:30:28,146 - excel_standardizer_improved - INFO - Using exact column match: 'Level'
+2025-04-11 11:30:28,148 - excel_standardizer_improved - INFO - Using exact column match: 'Q text'
+2025-04-11 11:30:28,149 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 1'
+2025-04-11 11:30:28,149 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 2'
+2025-04-11 11:30:28,150 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 3'
+2025-04-11 11:30:28,150 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 4'
+2025-04-11 11:30:28,151 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 5'
+2025-04-11 11:30:28,151 - excel_standardizer_improved - INFO - Using exact column match: 'Correct Answer'
+2025-04-11 11:30:28,154 - excel_standardizer_improved - INFO - Using exact column match: 'Topic'
+2025-04-11 11:30:28,325 - __main__ - INFO - File processed successfully. Output files: ['Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Migration and Export.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Authentication and Security.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Apex Application Development and Design.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Database and SQL.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Reports and Forms.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\Apex History and Architecture.xlsx', 'Processed-Files\\20250411_112844_Assessment_Questions_-_Oracle_Apex\\APEX Components and Features.xlsx']
+2025-04-11 11:30:28,327 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:30:28] "POST /api/process HTTP/1.1" 200 -
+2025-04-11 11:30:31,159 - __main__ - INFO - Downloading file: Processed-Files\20250411_112844_Assessment_Questions_-_Oracle_Apex/log_20250411_113028.json
+2025-04-11 11:30:31,161 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 11:30:31] "GET /api/download/20250411_112844_Assessment_Questions_-_Oracle_Apex/log_20250411_113028.json HTTP/1.1" 200 -
+2025-04-11 11:33:45,462 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 11:33:45,462 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 12:28:47,803 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 12:28:47,804 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 12:29:07,341 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 12:29:07] "GET / HTTP/1.1" 200 -
+2025-04-11 12:29:15,809 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'PeopleSoft_Finance_Questions_v1.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 12:29:15,809 - __main__ - INFO - File received: PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 12:29:15,819 - __main__ - INFO - Sheet name from request: None
+2025-04-11 12:29:15,819 - __main__ - INFO - Checking if file is valid: uploads\20250411_122915_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 12:29:16,268 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 12:29:16,268 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_122915_PeopleSoft_Finance_Questions_v1.xlsx, sheet: None
+2025-04-11 12:29:16,342 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 12:29:16,547 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 12:29:16,587 - __main__ - INFO - File analyzed successfully. Found 15 columns, 528 rows, 1 sheets, selected sheet: PeopleSoft FSCM Questions
+2025-04-11 12:29:16,604 - __main__ - INFO - Got 19 standard columns
+2025-04-11 12:29:16,605 - __main__ - INFO - Sending response with 15 columns and 1 sheets
+2025-04-11 12:29:16,607 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 12:29:16] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 12:33:44,397 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 12:33:44,398 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 12:34:54,919 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 12:34:54,919 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 16:32:16,231 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 16:32:16,232 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 16:32:22,947 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 16:32:22] "GET / HTTP/1.1" 200 -
+2025-04-11 16:32:29,562 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'PeopleSoft_Finance_Questions_v1.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 16:32:29,562 - __main__ - INFO - File received: PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 16:32:29,566 - __main__ - INFO - Sheet name from request: None
+2025-04-11 16:32:29,566 - __main__ - INFO - Checking if file is valid: uploads\20250411_163229_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 16:32:30,589 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 16:32:30,589 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_163229_PeopleSoft_Finance_Questions_v1.xlsx, sheet: None
+2025-04-11 16:32:30,644 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 16:32:30,750 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 16:32:30,769 - __main__ - INFO - File analyzed successfully. Found 15 columns, 528 rows, 1 sheets, selected sheet: PeopleSoft FSCM Questions
+2025-04-11 16:32:30,776 - __main__ - INFO - Got 19 standard columns
+2025-04-11 16:32:30,776 - __main__ - INFO - Sending response with 15 columns and 1 sheets
+2025-04-11 16:32:30,778 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 16:32:30] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 16:32:37,933 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'Assessment Questions - Oracle Apex.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 16:32:37,934 - __main__ - INFO - File received: Assessment Questions - Oracle Apex.xlsx
+2025-04-11 16:32:37,935 - __main__ - INFO - Sheet name from request: None
+2025-04-11 16:32:37,935 - __main__ - INFO - Checking if file is valid: uploads\20250411_163237_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-11 16:32:37,974 - __main__ - INFO - File is valid. Available sheets: ['Data', 'Usage Instructions', 'Sample', 'Sheet1', 'Oracle Apex Questions']
+2025-04-11 16:32:37,975 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_163237_Assessment_Questions_-_Oracle_Apex.xlsx, sheet: None
+2025-04-11 16:32:38,011 - excel_standardizer_improved - INFO - Found sheets in file: Data, Usage Instructions, Sample, Sheet1, Oracle Apex Questions
+2025-04-11 16:32:38,059 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 16:32:38,149 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 16:32:38,195 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 16:32:38,261 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 16:32:38,274 - __main__ - INFO - File analyzed successfully. Found 15 columns, 20 rows, 5 sheets, selected sheet: Sheet1
+2025-04-11 16:32:38,284 - __main__ - INFO - Got 19 standard columns
+2025-04-11 16:32:38,285 - __main__ - INFO - Sending response with 15 columns and 5 sheets
+2025-04-11 16:32:38,285 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 16:32:38] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 17:43:26,588 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5051
+ * Running on http://20.20.20.39:5051
+2025-04-11 17:43:26,588 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 17:43:32,480 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:43:32] "GET / HTTP/1.1" 200 -
+2025-04-11 17:44:15,280 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'Technical Assessments-ERP-Biogen.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 17:44:15,281 - __main__ - INFO - File received: Technical Assessments-ERP-Biogen.xlsx
+2025-04-11 17:44:15,282 - __main__ - INFO - Sheet name from request: None
+2025-04-11 17:44:15,282 - __main__ - INFO - Checking if file is valid: uploads\20250411_174415_Technical_Assessments-ERP-Biogen.xlsx
+2025-04-11 17:44:15,648 - __main__ - INFO - File is valid. Available sheets: ['Base Questions', 'GTM Developer', 'GTM Techno-Functional', 'WMS Techno-Functional', 'SCM Techno-Functional']
+2025-04-11 17:44:15,649 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_174415_Technical_Assessments-ERP-Biogen.xlsx, sheet: None
+2025-04-11 17:44:15,668 - excel_standardizer_improved - INFO - Found sheets in file: Base Questions, GTM Developer, GTM Techno-Functional, WMS Techno-Functional, SCM Techno-Functional
+2025-04-11 17:44:15,695 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:15,730 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:15,770 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:15,805 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:15,833 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:15,841 - __main__ - INFO - File analyzed successfully. Found 9 columns, 40 rows, 5 sheets, selected sheet: Base Questions
+2025-04-11 17:44:15,847 - __main__ - INFO - Got 19 standard columns
+2025-04-11 17:44:15,847 - __main__ - INFO - Sending response with 9 columns and 5 sheets
+2025-04-11 17:44:15,848 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:44:15] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 17:44:21,551 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'Technical Assessments-ERP-Biogen.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 17:44:21,552 - __main__ - INFO - File received: Technical Assessments-ERP-Biogen.xlsx
+2025-04-11 17:44:21,556 - __main__ - INFO - Sheet name from request: GTM Techno-Functional
+2025-04-11 17:44:21,557 - __main__ - INFO - Checking if file is valid: uploads\20250411_174421_Technical_Assessments-ERP-Biogen.xlsx
+2025-04-11 17:44:21,606 - __main__ - INFO - File is valid. Available sheets: ['Base Questions', 'GTM Developer', 'GTM Techno-Functional', 'WMS Techno-Functional', 'SCM Techno-Functional']
+2025-04-11 17:44:21,607 - __main__ - INFO - Sheet 'GTM Techno-Functional' found (exact match)
+2025-04-11 17:44:21,607 - __main__ - INFO - Checking if sheet 'GTM Techno-Functional' is readable
+2025-04-11 17:44:21,667 - __main__ - INFO - Sheet 'GTM Techno-Functional' is readable. Shape: (45, 9), Columns: ['Question No', 'Category', 'Domain', 'Capability', 'Focus Area', ' Level', 'Question', 'Options', 'Answer']
+2025-04-11 17:44:21,672 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_174421_Technical_Assessments-ERP-Biogen.xlsx, sheet: GTM Techno-Functional
+2025-04-11 17:44:21,720 - excel_standardizer_improved - INFO - Found sheets in file: Base Questions, GTM Developer, GTM Techno-Functional, WMS Techno-Functional, SCM Techno-Functional
+2025-04-11 17:44:21,777 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:21,844 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:21,913 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:21,987 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:22,068 - excel_standardizer_improved - INFO - Cleaned column name: ' Level' -> 'Level'
+2025-04-11 17:44:22,081 - excel_standardizer_improved - INFO - Using exact sheet name match: 'GTM Techno-Functional'
+2025-04-11 17:44:22,087 - __main__ - INFO - File analyzed successfully. Found 9 columns, 45 rows, 5 sheets, selected sheet: GTM Techno-Functional
+2025-04-11 17:44:22,105 - __main__ - INFO - Got 19 standard columns
+2025-04-11 17:44:22,105 - __main__ - INFO - Sending response with 9 columns and 5 sheets
+2025-04-11 17:44:22,107 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:44:22] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 17:44:39,856 - __main__ - INFO - Analyze file request received: ImmutableMultiDict([('file', <FileStorage: 'PeopleSoft_Finance_Questions_v1.xlsx' ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')>)])
+2025-04-11 17:44:39,857 - __main__ - INFO - File received: PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 17:44:39,863 - __main__ - INFO - Sheet name from request: None
+2025-04-11 17:44:39,863 - __main__ - INFO - Checking if file is valid: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 17:44:39,937 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 17:44:39,938 - __main__ - INFO - Analyzing file with standardizer: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx, sheet: None
+2025-04-11 17:44:40,084 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 17:44:40,295 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 17:44:40,322 - __main__ - INFO - File analyzed successfully. Found 15 columns, 528 rows, 1 sheets, selected sheet: PeopleSoft FSCM Questions
+2025-04-11 17:44:40,332 - __main__ - INFO - Got 19 standard columns
+2025-04-11 17:44:40,332 - __main__ - INFO - Sending response with 15 columns and 1 sheets
+2025-04-11 17:44:40,333 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:44:40] "POST /api/analyze HTTP/1.1" 200 -
+2025-04-11 17:45:29,387 - __main__ - INFO - Verifying file and sheet before processing: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx, sheet: PeopleSoft FSCM Questions
+2025-04-11 17:45:29,483 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 17:45:29,484 - __main__ - INFO - Sheet 'PeopleSoft FSCM Questions' found (exact match)
+2025-04-11 17:45:29,484 - __main__ - INFO - Processing file: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx, sheet: PeopleSoft FSCM Questions, mapping: {'Question Type': 'Q type', 'Difficulty Level': 'Level', 'Question Text': 'Q text', 'Option (A)': 'Option/ Answer 1', 'Option (B)': 'Option/ Answer 2', 'Option (C)': 'Option/ Answer 3', 'Option (D)': 'Option/ Answer 4', 'Option (E)': '', 'Correct Answer': 'Correct Answer', 'Answer Explanation': '', 'Topics': 'Topic', 'Recording Time Limit:(Upto 5 mins)': '', 'Retake Allowed:(Upto 5 mins)': '', 'Set Prep Time (0.5 to 5 mins)': '', 'Proofreading Status': '', 'Editor Email': '', 'Differential Scoring': ''}
+2025-04-11 17:45:29,638 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 17:45:29,872 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 17:45:29,904 - excel_standardizer_improved - INFO - Using exact sheet name match: 'PeopleSoft FSCM Questions'
+2025-04-11 17:45:29,912 - excel_standardizer_improved - INFO - Using sheet 'PeopleSoft FSCM Questions' for processing
+2025-04-11 17:45:30,130 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 17:45:30,163 - excel_standardizer_improved - INFO - Processing file with 528 rows and 15 columns
+2025-04-11 17:45:30,164 - excel_standardizer_improved - INFO - Columns: ['Q type', 'Level', 'Category', 'Skill', 'Topic', 'Subtopic', 'Q text', 'Option/ Answer 1', 'Option/ Answer 2', 'Option/ Answer 3', 'Option/ Answer 4', 'Option/ Answer 5', 'Option/ Answer 6', 'Correct Answer', "Author's Email id(optional)"]
+2025-04-11 17:45:30,183 - excel_standardizer_improved - INFO - Using exact column match: 'Q type'
+2025-04-11 17:45:30,202 - excel_standardizer_improved - INFO - Using exact column match: 'Level'
+2025-04-11 17:45:30,222 - excel_standardizer_improved - INFO - Using exact column match: 'Q text'
+2025-04-11 17:45:30,223 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 1'
+2025-04-11 17:45:30,224 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 2'
+2025-04-11 17:45:30,225 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 3'
+2025-04-11 17:45:30,226 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 4'
+2025-04-11 17:45:30,228 - excel_standardizer_improved - INFO - Using exact column match: 'Correct Answer'
+2025-04-11 17:45:30,245 - excel_standardizer_improved - INFO - Using exact column match: 'Topic'
+2025-04-11 17:45:31,120 - __main__ - INFO - File processed successfully. Output files: ['Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Billing.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Accounts Payable.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\PeopleSoft General Ledger.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Accounts Receivable.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Project Costing.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Financial Gateway.xlsx']
+2025-04-11 17:45:31,164 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:45:31] "POST /api/process HTTP/1.1" 200 -
+2025-04-11 17:45:38,980 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:45:38] "GET /api/download-all/20250411_174439_PeopleSoft_Finance_Questions_v1 HTTP/1.1" 200 -
+2025-04-11 17:48:39,044 - __main__ - INFO - Downloading file: Processed-Files\20250411_174439_PeopleSoft_Finance_Questions_v1/error_20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx
+2025-04-11 17:48:39,046 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:48:39] "GET /api/download/20250411_174439_PeopleSoft_Finance_Questions_v1/error_20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx HTTP/1.1" 200 -
+2025-04-11 17:49:00,607 - __main__ - INFO - Verifying file and sheet before processing: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx, sheet: PeopleSoft FSCM Questions
+2025-04-11 17:49:00,680 - __main__ - INFO - File is valid. Available sheets: ['PeopleSoft FSCM Questions']
+2025-04-11 17:49:00,680 - __main__ - INFO - Sheet 'PeopleSoft FSCM Questions' found (exact match)
+2025-04-11 17:49:00,681 - __main__ - INFO - Processing file: uploads\20250411_174439_PeopleSoft_Finance_Questions_v1.xlsx, sheet: PeopleSoft FSCM Questions, mapping: {'Question Type': 'Q type', 'Difficulty Level': 'Level', 'Question Text': 'Q text', 'Option (A)': 'Option/ Answer 1', 'Option (B)': 'Option/ Answer 2', 'Option (C)': 'Option/ Answer 3', 'Option (D)': 'Option/ Answer 4', 'Option (E)': 'Option/ Answer 5', 'Correct Answer': 'Correct Answer', 'Answer Explanation': '', 'Topics': 'Topic', 'Recording Time Limit:(Upto 5 mins)': '', 'Retake Allowed:(Upto 5 mins)': '', 'Set Prep Time (0.5 to 5 mins)': '', 'Proofreading Status': '', 'Editor Email': '', 'Differential Scoring': ''}
+2025-04-11 17:49:00,773 - excel_standardizer_improved - INFO - Found sheets in file: PeopleSoft FSCM Questions
+2025-04-11 17:49:00,995 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 17:49:01,030 - excel_standardizer_improved - INFO - Using exact sheet name match: 'PeopleSoft FSCM Questions'
+2025-04-11 17:49:01,037 - excel_standardizer_improved - INFO - Using sheet 'PeopleSoft FSCM Questions' for processing
+2025-04-11 17:49:01,254 - excel_standardizer_improved - INFO - Cleaned column name: 'Q type ' -> 'Q type'
+2025-04-11 17:49:01,284 - excel_standardizer_improved - INFO - Processing file with 528 rows and 15 columns
+2025-04-11 17:49:01,284 - excel_standardizer_improved - INFO - Columns: ['Q type', 'Level', 'Category', 'Skill', 'Topic', 'Subtopic', 'Q text', 'Option/ Answer 1', 'Option/ Answer 2', 'Option/ Answer 3', 'Option/ Answer 4', 'Option/ Answer 5', 'Option/ Answer 6', 'Correct Answer', "Author's Email id(optional)"]
+2025-04-11 17:49:01,303 - excel_standardizer_improved - INFO - Using exact column match: 'Q type'
+2025-04-11 17:49:01,325 - excel_standardizer_improved - INFO - Using exact column match: 'Level'
+2025-04-11 17:49:01,345 - excel_standardizer_improved - INFO - Using exact column match: 'Q text'
+2025-04-11 17:49:01,346 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 1'
+2025-04-11 17:49:01,347 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 2'
+2025-04-11 17:49:01,348 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 3'
+2025-04-11 17:49:01,349 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 4'
+2025-04-11 17:49:01,350 - excel_standardizer_improved - INFO - Using exact column match: 'Option/ Answer 5'
+2025-04-11 17:49:01,351 - excel_standardizer_improved - INFO - Using exact column match: 'Correct Answer'
+2025-04-11 17:49:01,369 - excel_standardizer_improved - INFO - Using exact column match: 'Topic'
+2025-04-11 17:49:01,891 - __main__ - INFO - File processed successfully. Output files: ['Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Billing.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Accounts Payable.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\PeopleSoft General Ledger.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Accounts Receivable.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Project Costing.xlsx', 'Processed-Files\\20250411_174439_PeopleSoft_Finance_Questions_v1\\Financial Gateway.xlsx']
+2025-04-11 17:49:01,893 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:49:01] "POST /api/process HTTP/1.1" 200 -
+2025-04-11 17:49:13,483 - __main__ - INFO - Downloading file: Processed-Files\20250411_174439_PeopleSoft_Finance_Questions_v1/log_20250411_174901.json
+2025-04-11 17:49:13,484 - werkzeug - INFO - 127.0.0.1 - - [11/Apr/2025 17:49:13] "GET /api/download/20250411_174439_PeopleSoft_Finance_Questions_v1/log_20250411_174901.json HTTP/1.1" 200 -

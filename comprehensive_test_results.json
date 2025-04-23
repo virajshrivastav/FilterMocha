@@ -1,0 +1,32 @@
+{
+  "total_tests": 5,
+  "passed_tests": 5,
+  "failed_tests": 0,
+  "test_results": [
+    {
+      "name": "Application Running Test",
+      "status": "passed",
+      "details": "Application is running. Status code: 200"
+    },
+    {
+      "name": "Standardizer Direct Test",
+      "status": "passed",
+      "details": "Successfully analyzed and processed file Sample-Files\\Assessment Questions - Oracle Apex.xlsx"
+    },
+    {
+      "name": "API Endpoints Test",
+      "status": "passed",
+      "details": "Successfully tested API endpoints with file Sample-Files\\Assessment Questions - Oracle Apex.xlsx"
+    },
+    {
+      "name": "Error Handling Test",
+      "status": "passed",
+      "details": "Error handling is working correctly"
+    },
+    {
+      "name": "Problematic Files Test",
+      "status": "passed",
+      "details": "Successfully processed problematic file Sample-Files\\error file with log\\QET GW Skill_questions_2024 (1).xlsx"
+    }
+  ]
+}

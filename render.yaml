@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: filtermocha-excel-standardizer
+    env: python
+    buildCommand: mkdir -p /tmp/uploads /tmp/Processed-Files /tmp/Standard-Format && cp -r Standard-Format/* /tmp/Standard-Format/ && pip install -r requirements.txt
+    startCommand: gunicorn fixed_app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.7
+      - key: UPLOAD_FOLDER
+        value: /tmp/uploads
+      - key: OUTPUT_FOLDER
+        value: /tmp/Processed-Files
+      - key: STANDARD_FORMAT_DIR
+        value: /tmp/Standard-Format

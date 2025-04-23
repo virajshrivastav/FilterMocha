@@ -1,0 +1,171 @@
+2025-04-10 15:55:01,473 - INFO - Starting integration test
+2025-04-10 15:55:01,479 - INFO - Testing file 1/2: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 15:55:01,479 - INFO - Uploading and analyzing file: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 15:55:01,923 - INFO - File analyzed successfully. Found 15 columns
+2025-04-10 15:55:01,924 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer"
+}
+2025-04-10 15:55:02,455 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 15:55:02,455 - ERROR - Error processing file: expected str, bytes or os.PathLike object, not dict
+2025-04-10 15:55:02,455 - INFO - Testing file 2/2: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 15:55:02,456 - INFO - Uploading and analyzing file: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 15:55:03,091 - INFO - File analyzed successfully. Found 16 columns
+2025-04-10 15:55:03,092 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer",
+  "Topics": "Topic",
+  "Author": "Author's Email id(optional)"
+}
+2025-04-10 15:55:04,088 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 15:55:04,089 - ERROR - Error processing file: expected str, bytes or os.PathLike object, not dict
+2025-04-10 15:55:04,089 - INFO - Integration test completed
+2025-04-10 15:55:04,090 - INFO - Integration test passed
+2025-04-10 15:58:36,348 - INFO - Starting integration test
+2025-04-10 15:58:36,354 - INFO - Testing file 1/2: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 15:58:36,355 - INFO - Uploading and analyzing file: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 15:58:37,050 - INFO - File analyzed successfully. Found 15 columns
+2025-04-10 15:58:37,050 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer"
+}
+2025-04-10 15:58:37,626 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 15:58:37,626 - INFO -   Output file 1: processed_20250410_155836_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-10 15:58:37,627 - INFO -   Output file 2: error_20250410_155836_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-10 15:58:37,627 - WARNING - Errors reported during processing:
+2025-04-10 15:58:37,627 - WARNING -   Error 1: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,628 - WARNING -   Error 2: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,628 - WARNING -   Error 3: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,628 - WARNING -   Error 4: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,629 - WARNING -   Error 5: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,629 - WARNING -   Error 6: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,629 - WARNING -   Error 7: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,630 - WARNING -   Error 8: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,630 - WARNING -   Error 9: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,630 - WARNING -   Error 10: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,630 - WARNING -   Error 11: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,631 - WARNING -   Error 12: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,631 - WARNING -   Error 13: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,631 - WARNING -   Error 14: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,632 - WARNING -   Error 15: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,632 - WARNING -   Error 16: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,632 - WARNING -   Error 17: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,633 - WARNING -   Error 18: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,633 - WARNING -   Error 19: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,633 - WARNING -   Error 20: Unknown Difficulty Level: ''
+2025-04-10 15:58:37,634 - WARNING -   Error 21: Required column 'Score' not mapped or not found
+2025-04-10 15:58:37,634 - WARNING -   Error 22: Required column 'Author' not mapped or not found
+2025-04-10 15:58:37,634 - INFO - Successfully tested file: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 15:58:37,635 - INFO - Testing file 2/2: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 15:58:37,635 - INFO - Uploading and analyzing file: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 15:58:38,221 - INFO - File analyzed successfully. Found 16 columns
+2025-04-10 15:58:38,222 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer",
+  "Topics": "Topic",
+  "Author": "Author's Email id(optional)"
+}
+2025-04-10 15:58:39,285 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 15:58:39,285 - INFO -   Output file 1: processed_20250410_155837_QET_GW_Skill_questions_2024_1.xlsx
+2025-04-10 15:58:39,285 - INFO -   Output file 2: error_20250410_155837_QET_GW_Skill_questions_2024_1.xlsx
+2025-04-10 15:58:39,286 - WARNING - Errors reported during processing:
+2025-04-10 15:58:39,286 - WARNING -   Error 1: Required column 'Score' not mapped or not found
+2025-04-10 15:58:39,286 - INFO - Successfully tested file: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 15:58:39,287 - INFO - Integration test completed
+2025-04-10 15:58:39,287 - INFO - Integration test passed
+2025-04-10 21:34:12,414 - ERROR - Application is not running at http://127.0.0.1:5051
+2025-04-10 21:34:12,414 - ERROR - Please start the application before running the tests
+2025-04-10 21:39:21,165 - INFO - Starting integration test
+2025-04-10 21:39:21,170 - INFO - Testing file 1/2: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 21:39:21,170 - INFO - Uploading and analyzing file: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 21:39:22,177 - INFO - File analyzed successfully. Found 15 columns
+2025-04-10 21:39:22,178 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer"
+}
+2025-04-10 21:39:23,215 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 21:39:23,216 - INFO -   Output file 1: processed_20250410_213921_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-10 21:39:23,216 - INFO -   Output file 2: error_20250410_213921_Assessment_Questions_-_Oracle_Apex.xlsx
+2025-04-10 21:39:23,216 - WARNING - Errors reported during processing:
+2025-04-10 21:39:23,217 - WARNING -   Error 1: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,217 - WARNING -   Error 2: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,218 - WARNING -   Error 3: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,218 - WARNING -   Error 4: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,219 - WARNING -   Error 5: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,219 - WARNING -   Error 6: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,220 - WARNING -   Error 7: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,220 - WARNING -   Error 8: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,220 - WARNING -   Error 9: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,221 - WARNING -   Error 10: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,221 - WARNING -   Error 11: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,222 - WARNING -   Error 12: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,222 - WARNING -   Error 13: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,222 - WARNING -   Error 14: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,223 - WARNING -   Error 15: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,223 - WARNING -   Error 16: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,224 - WARNING -   Error 17: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,224 - WARNING -   Error 18: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,225 - WARNING -   Error 19: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,225 - WARNING -   Error 20: Unknown Difficulty Level: ''
+2025-04-10 21:39:23,226 - WARNING -   Error 21: Required column 'Score' not mapped or not found
+2025-04-10 21:39:23,226 - WARNING -   Error 22: Required column 'Author' not mapped or not found
+2025-04-10 21:39:23,226 - INFO - Successfully tested file: Sample-Files/Assessment Questions - Oracle Apex.xlsx
+2025-04-10 21:39:23,227 - INFO - Testing file 2/2: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 21:39:23,228 - INFO - Uploading and analyzing file: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 21:39:24,493 - INFO - File analyzed successfully. Found 16 columns
+2025-04-10 21:39:24,494 - INFO - Processing file with mapping: {
+  "Question Type": "Q type",
+  "Difficulty Level": "Level",
+  "Question Text": "Q text",
+  "Option (A)": "Option/ Answer 1",
+  "Option (B)": "Option/ Answer 2",
+  "Option (C)": "Option/ Answer 3",
+  "Option (D)": "Option/ Answer 4",
+  "Option (E)": "Option/ Answer 5",
+  "Correct Answer": "Correct Answer",
+  "Topics": "Topic",
+  "Author": "Author's Email id(optional)"
+}
+2025-04-10 21:39:26,689 - INFO - File processed successfully. Generated 2 output files
+2025-04-10 21:39:26,690 - INFO -   Output file 1: processed_20250410_213923_QET_GW_Skill_questions_2024_1.xlsx
+2025-04-10 21:39:26,690 - INFO -   Output file 2: error_20250410_213923_QET_GW_Skill_questions_2024_1.xlsx
+2025-04-10 21:39:26,691 - WARNING - Errors reported during processing:
+2025-04-10 21:39:26,691 - WARNING -   Error 1: Required column 'Score' not mapped or not found
+2025-04-10 21:39:26,692 - INFO - Successfully tested file: Sample-Files/error file with log/QET GW Skill_questions_2024 (1).xlsx
+2025-04-10 21:39:26,692 - INFO - Integration test completed
+2025-04-10 21:39:26,693 - INFO - Integration test passed
